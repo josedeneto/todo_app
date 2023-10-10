@@ -4,6 +4,8 @@ import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'home/components/todo_status.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -22,8 +24,14 @@ class _HomePageState extends State<HomePage> {
           'Olá',
           style: AppTypography.boldText!.copyWith(fontSize: 24),
         ),
-        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.menu))],
-        
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.menu,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
@@ -48,17 +56,8 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TodoStatus(todos: todos),
-                Text.rich(
-                  TextSpan(children: [
-                    const TextSpan(text: '0 '),
-                    const TextSpan(text: 'Tarefas '),
-                    TextSpan(
-                      text: 'Coompletas',
-                      style: AppTypography.boldText,
-                    )
-                  ]),
-                )
+                TodoStatus(todos: todos,status: 'Pendentes',),
+                TodoStatus(todos: todos, status: 'Completas')
               ],
             ),
             const SizedBox(
@@ -66,8 +65,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               'Lista de tarefas',
-              style:
-                  AppTypography.normal!.copyWith(color: AppColor.secondary),
+              style: AppTypography.normal!.copyWith(color: AppColor.secondary),
             ),
             const SizedBox(
               height: 15,
@@ -129,5 +127,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
