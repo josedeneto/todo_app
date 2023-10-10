@@ -10,6 +10,7 @@ class AppTheme {
         hintColor: AppColor.hint,
         textTheme: TextTheme(bodySmall: AppTypography.normal,bodyMedium: AppTypography.normal,),
         listTileTheme: ListTileThemeData(
+          contentPadding: const EdgeInsets.only(left: 0),
           leadingAndTrailingTextStyle: AppTypography.normal,
           minLeadingWidth: 1,
           horizontalTitleGap: 5,
@@ -44,7 +45,6 @@ class AppTheme {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           disabledElevation: 0,
           backgroundColor: AppColor.secondary,
-          hoverColor: Colors.red,
           elevation: 0,
         ),
 

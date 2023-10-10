@@ -1,5 +1,6 @@
 import 'package:app_todo/app/constants/app_constants.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
+import 'package:app_todo/app/utils/helpers/navigators_extension.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -42,11 +43,17 @@ class _HomePageState extends State<HomePage> {
               TextSpan(
                 children: [
                   TextSpan(
-                      text: 'José',
-                      style: AppTypography.normal!.copyWith(fontSize: 18)),
+                    text: 'José',
+                    style: AppTypography.normal!.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
                   TextSpan(
-                      text: '  Neto',
-                      style: AppTypography.boldText!.copyWith(fontSize: 18)),
+                    text: '  Neto',
+                    style: AppTypography.boldText!.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -56,8 +63,14 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TodoStatus(todos: todos,status: 'Pendentes',),
-                TodoStatus(todos: todos, status: 'Completas')
+                TodoStatus(
+                  todos: todos,
+                  status: 'Pendentes',
+                ),
+                 TodoStatus(
+                  todos: todos,
+                  status: 'Completas',
+                )
               ],
             ),
             const SizedBox(
@@ -65,10 +78,12 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               'Lista de tarefas',
-              style: AppTypography.normal!.copyWith(color: AppColor.secondary),
+              style: AppTypography.normal!.copyWith(
+                color: AppColor.secondary,
+              ),
             ),
             const SizedBox(
-              height: 15,
+              height: 20,
             ),
             todos.isEmpty
                 ? Expanded(
@@ -83,7 +98,9 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             AppConstants.messageNoTodo,
                             textAlign: TextAlign.center,
-                            style: AppTypography.normal,
+                            style: AppTypography.normal!.copyWith(
+                              color: AppColor.grey
+                            ),
                           ),
                         ],
                       ),
@@ -111,7 +128,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         tooltip: 'Adicionar',
         onPressed: () async {
-          final response = await Navigator.pushNamed(context, '/add_todo');
+          final response = await context.pushNamed(page: '/add_todo');
           if (response != null) {
             setState(() {
               todos.add(response.toString());
