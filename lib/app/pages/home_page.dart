@@ -16,111 +16,101 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Text('Olá', style: AppTypography.boldText!.copyWith(
-                      fontSize: 24
-                     ),),
-               Text.rich(
-                TextSpan(
-                  children: [
-                     TextSpan(text: 'José', style: AppTypography.normal!.copyWith(
-                      fontSize: 18
-                     )),
-                    TextSpan(
-                      text: '  Neto',
-                      style: AppTypography.boldText!.copyWith(
-                      fontSize: 18
-                     )
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: AppBarWidget(
+        implyLeading: false,
+        title: Text(
+          'Olá',
+          style: AppTypography.boldText!.copyWith(fontSize: 24),
+        ),
+        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.menu))],
+        
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(
+              TextSpan(
                 children: [
-                  Text.rich(
-                    TextSpan(children: [
-                      TextSpan(
-                        text: '${todos.length} ',
-                        style: AppTypography.normal,
-                      ),
-                      TextSpan(
-                        text: 'Tarefas ',
-                        style: AppTypography.normal,
-                      ),
-                      TextSpan(
-                        text: 'Pendentes',
-                        style: AppTypography.boldText,
-                      ),
-                    ]),
-                  ),
-                   Text.rich(
-                    TextSpan(children: [
-                      const TextSpan(text: '0 '),
-                      const TextSpan(text: 'Tarefas '),
-                      TextSpan(
-                          text: 'Coompletas',
-                          style: AppTypography.boldText,)
-                    ]),
-                  )
+                  TextSpan(
+                      text: 'José',
+                      style: AppTypography.normal!.copyWith(fontSize: 18)),
+                  TextSpan(
+                      text: '  Neto',
+                      style: AppTypography.boldText!.copyWith(fontSize: 18)),
                 ],
               ),
-              const SizedBox(height: 25,),
-               Text('Lista de tarefas', style:AppTypography.normal!.copyWith(
-                color: AppColor.secondary
-               ) ,),
-              const SizedBox(
-                height: 15,
-              ),
-              todos.isEmpty
-                  ? Expanded(
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/2_corte.png',
-                              height: 110,
-                            ),
-                            Text(
-                              AppConstants.messageNoTodo,
-                              textAlign: TextAlign.center,
-                              style: AppTypography.normal,
-                            ),
-                          ],
-                        ),
-                      ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TodoStatus(todos: todos),
+                Text.rich(
+                  TextSpan(children: [
+                    const TextSpan(text: '0 '),
+                    const TextSpan(text: 'Tarefas '),
+                    TextSpan(
+                      text: 'Coompletas',
+                      style: AppTypography.boldText,
                     )
-                  : Expanded(
-                      child: ListView.separated(
-                        keyboardDismissBehavior:
-                            ScrollViewKeyboardDismissBehavior.onDrag,
-                        separatorBuilder: (_, i) => const Divider(),
-                        itemCount: todos.length,
-                        itemBuilder: (_, index) => ListTile(
-                          leading: Text(
-                            '${index + 1} -',
+                  ]),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Text(
+              'Lista de tarefas',
+              style:
+                  AppTypography.normal!.copyWith(color: AppColor.secondary),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            todos.isEmpty
+                ? Expanded(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/3.png',
+                            height: 150,
                           ),
-                          title: Text(
-                            todos[index],
+                          Text(
+                            AppConstants.messageNoTodo,
+                            textAlign: TextAlign.center,
+                            style: AppTypography.normal,
                           ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Expanded(
+                    child: ListView.separated(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      separatorBuilder: (_, i) => const Divider(),
+                      itemCount: todos.length,
+                      itemBuilder: (_, index) => ListTile(
+                        leading: Text(
+                          '${index + 1} -',
+                        ),
+                        title: Text(
+                          todos[index],
                         ),
                       ),
                     ),
-            ],
-          ),
+                  ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        mini: true,
         tooltip: 'Adicionar',
         onPressed: () async {
           final response = await Navigator.pushNamed(context, '/add_todo');
@@ -139,3 +129,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
