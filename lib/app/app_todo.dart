@@ -1,5 +1,5 @@
-import 'package:app_todo/app/pages/add_todo_page.dart';
-import 'package:app_todo/app/pages/home_page.dart';
+import 'package:app_todo/app/pages/add_todo/add_todo_page.dart';
+import 'package:app_todo/app/pages/home/home_page.dart';
 import 'package:app_todo/app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 

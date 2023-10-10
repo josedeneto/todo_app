@@ -2,8 +2,8 @@ import 'package:app_todo/app/utils/helpers/todo_validators.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/colors/app_color.dart';
-import '../utils/helpers/messages_validate.dart';
+import '../../utils/colors/app_color.dart';
+import '../../utils/helpers/messages_validate.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});

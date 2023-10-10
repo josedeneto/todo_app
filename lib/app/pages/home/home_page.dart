@@ -5,7 +5,7 @@ import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'home/components/todo_status.dart';
+import 'components/todo_status.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -61,16 +61,36 @@ class _HomePageState extends State<HomePage> {
               height: 15,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TodoStatus(
-                  todos: todos,
-                  status: 'Pendentes',
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: AppColor.chips,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Center(child:  Text('Todas(23)')),
+                  ),
                 ),
-                 TodoStatus(
-                  todos: todos,
-                  status: 'Completas',
-                )
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.hint, width: 1),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Center(child: Text('A fazer(2)')),
+                  ),
+                ),
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.hint, width: 1),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Center(child: Text('Feitas(0)')),
+                  ),
+                ),
               ],
             ),
             const SizedBox(
@@ -78,9 +98,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               'Lista de tarefas',
-              style: AppTypography.normal!.copyWith(
-                color: AppColor.secondary,
-              ),
+              style: AppTypography.boldText!.copyWith(fontSize: 18, fontWeight: FontWeight.w400,)
             ),
             const SizedBox(
               height: 20,
@@ -98,9 +116,8 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             AppConstants.messageNoTodo,
                             textAlign: TextAlign.center,
-                            style: AppTypography.normal!.copyWith(
-                              color: AppColor.grey
-                            ),
+                            style: AppTypography.normal!
+                                .copyWith(color: AppColor.grey),
                           ),
                         ],
                       ),

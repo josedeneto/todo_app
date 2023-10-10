@@ -11,4 +11,7 @@ class AppColor {
   static Color grey = Colors.grey.shade600;
   static const textField = Color(0XFF202024);
   static const border = Color.fromARGB(255, 35, 35, 39);
+  static const listIndex = Color.fromARGB(24, 161, 133, 226);
+   static const chips = Color.fromARGB(111, 130, 87, 229);
+
 }
