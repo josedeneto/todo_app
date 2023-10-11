@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> todos = [];
+  var isItemSelected = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,8 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () {},
             icon: const Icon(
-              Icons.menu,
+              Icons.more_horiz_rounded,
+              color: AppColor.white,
             ),
           ),
         ],
@@ -129,15 +131,32 @@ class _HomePageState extends State<HomePage> {
                   )
                 : Expanded(
                     child: ListView.separated(
+                      physics: const BouncingScrollPhysics(
+                        decelerationRate: ScrollDecelerationRate.fast,
+                      ),
                       separatorBuilder: (_, i) => const Divider(),
                       itemCount: todos.length,
                       itemBuilder: (_, index) => ListTile(
+                        selectedColor: AppColor.white,
+                        selected: isItemSelected,
+                        onTap: () {
+                          todos[index];
+                          setState(() {
+                            isItemSelected = true;
+                          });
+                        },
                         leading: Text(
                           '${index + 1} -',
                         ),
                         title: Text(
                           todos[index],
                         ),
+                        trailing: isItemSelected
+                            ? const Icon(
+                                Icons.check_circle,
+                                color: AppColor.secondary,
+                              )
+                            : const Icon(Icons.delete),
                       ),
                     ),
                   ),
@@ -145,6 +164,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        highlightElevation: 0,
         onPressed: () async {
           final response = await context.pushNamed(page: '/add_todo');
           if (response != null) {
