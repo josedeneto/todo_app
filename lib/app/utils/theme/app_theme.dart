@@ -44,7 +44,7 @@ class AppTheme {
 
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           disabledElevation: 0,
-          backgroundColor: AppColor.secondary,
+          backgroundColor: AppColor.chips,
           elevation: 0,
         ),
 

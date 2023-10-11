@@ -1,11 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:app_todo/app/pages/home/components/filter_chip_component.dart';
+import 'package:flutter/material.dart';
+
 import 'package:app_todo/app/constants/app_constants.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/helpers/navigators_extension.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
-import 'package:flutter/material.dart';
 
-import 'components/todo_status.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,7 +26,9 @@ class _HomePageState extends State<HomePage> {
         implyLeading: false,
         title: Text(
           'Olá',
-          style: AppTypography.boldText!.copyWith(fontSize: 24),
+          style: AppTypography.boldText!.copyWith(
+            fontSize: 24,
+          ),
         ),
         actions: [
           IconButton(
@@ -35,7 +40,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+        padding: const EdgeInsets.symmetric(
+          vertical: 0,
+          horizontal: 20,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -63,32 +71,49 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 Expanded(
-                  child: Container(
+                  child: FilterChipComponent(title: 'Todas', todos: todos, function: null, isSelected: true,)
+                  /* Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        color: AppColor.chips,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Center(child:  Text('Todas(23)')),
-                  ),
+                      color: AppColor.chips,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Center(
+                      child: Text('Todas(23)'),
+                    ),
+                  ),*/
                 ),
-                const SizedBox(width: 10,),
+                const SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        border: Border.all(color: AppColor.hint, width: 1),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Center(child: Text('A fazer(2)')),
+                      border: Border.all(
+                        color: AppColor.hint,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Center(
+                      child: Text('A fazer(2)'),
+                    ),
                   ),
                 ),
-                const SizedBox(width: 10,),
+                const SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        border: Border.all(color: AppColor.hint, width: 1),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Center(child: Text('Feitas(0)')),
+                      border: Border.all(color: AppColor.hint, width: 1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Center(
+                      child: Text('Feitas(0)'),
+                    ),
                   ),
                 ),
               ],
@@ -96,10 +121,11 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 25,
             ),
-            Text(
-              'Lista de tarefas',
-              style: AppTypography.boldText!.copyWith(fontSize: 18, fontWeight: FontWeight.w400,)
-            ),
+            Text('Lista de tarefas',
+                style: AppTypography.boldText!.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                )),
             const SizedBox(
               height: 20,
             ),
@@ -116,8 +142,9 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             AppConstants.messageNoTodo,
                             textAlign: TextAlign.center,
-                            style: AppTypography.normal!
-                                .copyWith(color: AppColor.grey),
+                            style: AppTypography.normal!.copyWith(
+                              color: AppColor.grey,
+                            ),
                           ),
                         ],
                       ),
@@ -125,8 +152,6 @@ class _HomePageState extends State<HomePage> {
                   )
                 : Expanded(
                     child: ListView.separated(
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
                       separatorBuilder: (_, i) => const Divider(),
                       itemCount: todos.length,
                       itemBuilder: (_, index) => ListTile(
@@ -142,8 +167,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Adicionar',
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final response = await context.pushNamed(page: '/add_todo');
           if (response != null) {
@@ -154,10 +178,13 @@ class _HomePageState extends State<HomePage> {
             todos.add("");
           }
         },
-        child: const Icon(
-          Icons.add,
+        label: const Text(
+          'Adicionar',
         ),
+        icon: const Icon(Icons.add),
       ),
     );
   }
 }
+
+
