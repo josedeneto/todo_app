@@ -24,17 +24,21 @@ class _FilterChipComponentState extends State<FilterChipComponent> {
   @override
   Widget build(BuildContext context) {
     return FilterChip(
-      backgroundColor: AppColor.chips,
-      checkmarkColor: AppColor.chips,
-      disabledColor: Colors.transparent,
-      padding: const EdgeInsets.only(left: 0),
+      showCheckmark: false,
+      selectedColor: AppColor.secondary,
+      disabledColor: AppColor.background,
+      labelStyle: AppTypography.boldText!.copyWith(
+        fontSize: 16,
+      ),
       selected: widget.isSelected,
-      label: Text('${widget.title}(${widget.todos.length})'),
+      label: Text(
+        '${widget.title}(${widget.todos.length})',
+      ),
       onSelected: widget.function,
-      labelStyle: AppTypography.normal,
-      side: widget.isSelected
+      side: !widget.isSelected
           ? const BorderSide(
-              color: AppColor.white,
+              color: AppColor.hint,
+              width: 1,
               style: BorderStyle.solid,
             )
           : BorderSide.none,

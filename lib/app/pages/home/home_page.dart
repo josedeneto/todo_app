@@ -8,8 +8,6 @@ import 'package:app_todo/app/utils/helpers/navigators_extension.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -69,59 +67,38 @@ class _HomePageState extends State<HomePage> {
               height: 15,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(
-                  child: FilterChipComponent(title: 'Todas', todos: todos, function: null, isSelected: true,)
-                  /* Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppColor.chips,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Center(
-                      child: Text('Todas(23)'),
-                    ),
-                  ),*/
+                FilterChipComponent(
+                  title: 'Todas',
+                  todos: todos,
+                  function: null,
+                  isSelected: true,
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 15,
                 ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColor.hint,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Center(
-                      child: Text('A fazer(2)'),
-                    ),
-                  ),
+                FilterChipComponent(
+                  title: 'A fazer',
+                  todos: todos,
+                  function: null,
+                  isSelected: false,
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 15,
                 ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColor.hint, width: 1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Center(
-                      child: Text('Feitas(0)'),
-                    ),
-                  ),
+                FilterChipComponent(
+                  title: 'Feitas',
+                  todos: todos,
+                  function: null,
+                  isSelected: false,
                 ),
               ],
             ),
             const SizedBox(
               height: 25,
             ),
-            Text('Lista de tarefas',
+            Text('Minhas tarefas',
                 style: AppTypography.boldText!.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
@@ -186,5 +163,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
