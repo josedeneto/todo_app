@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:app_todo/app/pages/home/components/filter_chip_component.dart';
+import 'package:app_todo/app/pages/home/widgets/filter_chip_component.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app_todo/app/constants/app_constants.dart';
+import 'package:app_todo/app/utils/constants/app_constants.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/helpers/navigators_extension.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> todos = [];
-  var isItemSelected = false;
+  List<String> done = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () {},
             icon: const Icon(
-              Icons.more_horiz_rounded,
+              Icons.more_vert_outlined,
               color: AppColor.white,
             ),
           ),
@@ -57,15 +57,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   TextSpan(
-                    text: '  Neto',
-                    style: AppTypography.boldText!.copyWith(
-                      fontSize: 18,
-                    ),
+                    text: ' Neto',
+                    style: AppTypography.boldText
                   ),
                 ],
               ),
             ),
-            const SizedBox(
+             const SizedBox(
               height: 15,
             ),
             Row(
@@ -81,17 +79,8 @@ class _HomePageState extends State<HomePage> {
                   width: 15,
                 ),
                 FilterChipComponent(
-                  title: 'A fazer',
-                  todos: todos,
-                  function: null,
-                  isSelected: false,
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                FilterChipComponent(
                   title: 'Feitas',
-                  todos: todos,
+                  todos: done,
                   function: null,
                   isSelected: false,
                 ),
@@ -102,9 +91,8 @@ class _HomePageState extends State<HomePage> {
             ),
             Text('Minhas tarefas',
                 style: AppTypography.boldText!.copyWith(
-                  fontSize: 18,
                   fontWeight: FontWeight.w400,
-                )),
+                ),),
             const SizedBox(
               height: 20,
             ),
@@ -137,12 +125,16 @@ class _HomePageState extends State<HomePage> {
                       separatorBuilder: (_, i) => const Divider(),
                       itemCount: todos.length,
                       itemBuilder: (_, index) => ListTile(
-                        selectedColor: AppColor.white,
-                        selected: isItemSelected,
+                        selectedColor:AppColor.selectedColor,
+                        selectedTileColor: AppColor.selectTile,
+                        selected: done.contains(todos[index]),
                         onTap: () {
-                          todos[index];
                           setState(() {
-                            isItemSelected = true;
+                            if(done.contains(todos[index])){
+                            done.remove(todos[index]);
+                          } else{
+                            done.add(todos[index]);
+                          }
                           });
                         },
                         leading: Text(
@@ -151,12 +143,12 @@ class _HomePageState extends State<HomePage> {
                         title: Text(
                           todos[index],
                         ),
-                        trailing: isItemSelected
+                        /*trailing: isItemSelected
                             ? const Icon(
                                 Icons.check_circle,
                                 color: AppColor.secondary,
                               )
-                            : const Icon(Icons.delete),
+                            : const Icon(Icons.delete),*/
                       ),
                     ),
                   ),

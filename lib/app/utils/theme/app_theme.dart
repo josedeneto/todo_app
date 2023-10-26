@@ -8,7 +8,10 @@ class AppTheme {
   static ThemeData get theme => ThemeData(
         scaffoldBackgroundColor: AppColor.background,
         hintColor: AppColor.hint,
-        textTheme: TextTheme(bodySmall: AppTypography.normal,bodyMedium: AppTypography.normal,),
+        textTheme: TextTheme(
+          bodySmall: AppTypography.normal,
+          bodyMedium: AppTypography.normal,
+        ),
         listTileTheme: ListTileThemeData(
           contentPadding: const EdgeInsets.only(left: 0),
           leadingAndTrailingTextStyle: AppTypography.normal,
@@ -16,7 +19,6 @@ class AppTheme {
           horizontalTitleGap: 5,
           titleTextStyle: AppTypography.normal,
         ),
-        
         snackBarTheme: const SnackBarThemeData(
           actionTextColor: AppColor.secondary,
           backgroundColor: AppColor.textField,
@@ -24,7 +26,13 @@ class AppTheme {
             color: AppColor.white,
           ),
         ),
-
+        chipTheme: ChipThemeData(
+          selectedColor: AppColor.secondary,
+          disabledColor: AppColor.background,
+          labelStyle: AppTypography.boldText!.copyWith(
+            fontSize: 16,
+          ),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: AppColor.textField,
@@ -33,7 +41,6 @@ class AppTheme {
           border: AppStyle.defaultBorder,
           focusedBorder: AppStyle.focusedBorder,
         ),
-
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(
             color: AppColor.secondary,
@@ -41,23 +48,20 @@ class AppTheme {
           color: AppColor.background,
           elevation: 0,
         ),
-
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           disabledElevation: 0,
           backgroundColor: AppColor.secondary,
           elevation: 0,
         ),
-
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(14),
             backgroundColor: AppColor.secondary,
           ),
         ),
-
         dividerTheme: const DividerThemeData(
           thickness: 1,
-              color: AppColor.border,
-        )
+          color: AppColor.border,
+        ),
       );
 }

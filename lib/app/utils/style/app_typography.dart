@@ -10,7 +10,8 @@ class AppTypography {
 
   static TextStyle? boldText = const TextStyle (
      color: AppColor.white,
-     fontWeight: FontWeight.w900
+     fontWeight: FontWeight.w900,
+     fontSize: 18
   );
    
   }

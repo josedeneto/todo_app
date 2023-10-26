@@ -13,5 +13,7 @@ class AppColor {
   static const border = Color.fromARGB(255, 35, 35, 39);
   static const listIndex = Color.fromARGB(24, 161, 133, 226);
    static const chips = Color.fromARGB(111, 130, 87, 229);
+   static const selectedColor = Color.fromARGB(255, 80, 77, 77);
+   static const selectTile = Color.fromARGB(251, 27, 26, 27);
 
 }

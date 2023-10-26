@@ -3,11 +3,8 @@
 class ModelTodo {
   String title;
   String dataTime;
-  bool isTodoSelected;
   ModelTodo({
     required this.title,
     required this.dataTime,
-    required this.isTodoSelected
   });
-  
 }
