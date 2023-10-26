@@ -12,6 +12,7 @@ class AppTheme {
           bodySmall: AppTypography.normal,
           bodyMedium: AppTypography.normal,
         ),
+        useMaterial3: true,
         listTileTheme: ListTileThemeData(
           contentPadding: const EdgeInsets.only(left: 0),
           leadingAndTrailingTextStyle: AppTypography.normal,
@@ -28,6 +29,7 @@ class AppTheme {
         ),
         chipTheme: ChipThemeData(
           selectedColor: AppColor.secondary,
+          checkmarkColor: AppColor.white,
           disabledColor: AppColor.background,
           labelStyle: AppTypography.boldText!.copyWith(
             fontSize: 16,
@@ -49,14 +51,16 @@ class AppTheme {
           elevation: 0,
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          disabledElevation: 0,
+          disabledElevation:0,
           backgroundColor: AppColor.secondary,
           elevation: 0,
+          foregroundColor: AppColor.white,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(14),
             backgroundColor: AppColor.secondary,
+            foregroundColor: AppColor.white
           ),
         ),
         dividerTheme: const DividerThemeData(
