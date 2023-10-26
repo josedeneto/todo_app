@@ -1,6 +1,7 @@
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../style/app_style.dart';
 
@@ -43,25 +44,29 @@ class AppTheme {
           border: AppStyle.defaultBorder,
           focusedBorder: AppStyle.focusedBorder,
         ),
-        appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(
+        appBarTheme: AppBarTheme(
+          foregroundColor: AppColor.white,
+          titleTextStyle: AppTypography.normal!.copyWith(fontSize: 18),
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+          ),
+          iconTheme: const IconThemeData(
             color: AppColor.secondary,
           ),
-          color: AppColor.background,
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          disabledElevation:0,
+          disabledElevation: 0,
           backgroundColor: AppColor.secondary,
           elevation: 0,
           foregroundColor: AppColor.white,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(14),
-            backgroundColor: AppColor.secondary,
-            foregroundColor: AppColor.white
-          ),
+              padding: const EdgeInsets.all(14),
+              backgroundColor: AppColor.secondary,
+              foregroundColor: AppColor.white),
         ),
         dividerTheme: const DividerThemeData(
           thickness: 1,
