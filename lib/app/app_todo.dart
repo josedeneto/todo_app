@@ -8,17 +8,23 @@ class AppTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-        body: HomePage(),
-      ),
-      theme: AppTheme.theme,
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => const HomePage(),
-        '/add_todo': (context) => const AddTodoPage()
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
       },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const Scaffold(
+          body: HomePage(),
+        ),
+        theme: AppTheme.theme,
+        initialRoute: '/home',
+        routes: {
+          '/home': (context) => const HomePage(),
+          '/add_todo': (context) => const AddTodoPage()
+        },
+      ),
     );
   }
 }

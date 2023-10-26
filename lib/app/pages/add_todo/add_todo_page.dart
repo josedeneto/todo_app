@@ -57,6 +57,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 validator: validatorTodo,
                 cursorColor: AppColor.secondary,
                 decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.access_time_rounded),
                   hintText: 'O que planeja hoje?',
                 ),
                 onChanged: (value) {
@@ -70,8 +71,18 @@ class _AddTodoPageState extends State<AddTodoPage>
               ),
               TextFormField(
                 readOnly: true,
-                
-                style: const TextStyle(color: AppColor.white),
+                onTap: () {
+                  showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime.now())
+                      .then((value) {
+                    setState(() {
+                      dateController.text = value.toString();
+                    });
+                  });
+                },
                 cursorColor: AppColor.secondary,
                 decoration: const InputDecoration(
                   hintText: 'Quando?',
@@ -82,7 +93,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 ),
                 onChanged: (value) {
                   setState(() {
-                    todoController.text = value;
+                    dateController.text = value;
                   });
                 },
               ),
