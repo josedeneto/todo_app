@@ -20,6 +20,8 @@ class AppTheme {
           minLeadingWidth: 1,
           horizontalTitleGap: 5,
           titleTextStyle: AppTypography.normal,
+          selectedColor: AppColor.selectedColor,
+          selectedTileColor: AppColor.selectTile,
         ),
         snackBarTheme: const SnackBarThemeData(
           actionTextColor: AppColor.secondary,

@@ -124,8 +124,6 @@ class _HomePageState extends State<HomePage> {
                       separatorBuilder: (_, i) => const Divider(),
                       itemCount: todos.length,
                       itemBuilder: (_, index) => ListTile(
-                        selectedColor: AppColor.selectedColor,
-                        selectedTileColor: AppColor.selectTile,
                         selected: done.contains(todos[index]),
                         onTap: () {
                           setState(() {
@@ -142,12 +140,6 @@ class _HomePageState extends State<HomePage> {
                         title: Text(
                           todos[index],
                         ),
-                        /*trailing: isItemSelected
-                            ? const Icon(
-                                Icons.check_circle,
-                                color: AppColor.secondary,
-                              )
-                            : const Icon(Icons.delete),*/
                       ),
                     ),
                   ),

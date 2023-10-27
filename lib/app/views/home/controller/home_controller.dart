@@ -5,7 +5,12 @@ class HomeController extends ChangeNotifier{
   List<TodoModel> done = [];
 
   doneTodo(TodoModel todoModel){
-    done.add(todoModel);
+    if(done.contains(todoModel)){
+      done.remove(todoModel);
+    }
+    else{
+      done.add(todoModel);
+    }
     notifyListeners();
   }
 
