@@ -1,4 +1,5 @@
 import 'package:app_todo/app/utils/theme/app_theme.dart';
+import 'package:app_todo/app/views/settings/settings.page.dart';
 import 'package:flutter/material.dart';
 
 import 'views/add_todo/add_todo_page.dart';
@@ -20,10 +21,11 @@ class AppTodo extends StatelessWidget {
           body: HomePage(),
         ),
         theme: AppTheme.theme,
-        initialRoute: '/home',
+        initialRoute: '/settings',
         routes: {
           '/home': (context) => const HomePage(),
-          '/add_todo': (context) => const AddTodoPage()
+          '/add_todo': (context) => const AddTodoPage(),
+          '/settings':(context) =>  const SettingsPage()
         },
       ),
     );

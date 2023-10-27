@@ -118,7 +118,10 @@ class _AddTodoPageState extends State<AddTodoPage>
                     child: TextFormField(
                       style: const TextStyle(color: AppColor.white),
                       decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.access_time_rounded, size: 21,),
+                        prefixIcon: Icon(
+                          Icons.access_time_rounded,
+                          size: 21,
+                        ),
                         hintText: '7:00',
                       ),
                     ),
@@ -137,7 +140,10 @@ class _AddTodoPageState extends State<AddTodoPage>
                       style: const TextStyle(color: AppColor.white),
                       decoration: const InputDecoration(
                         hintText: '10:00',
-                         prefixIcon: Icon(Icons.access_time_rounded, size: 21,),
+                        prefixIcon: Icon(
+                          Icons.access_time_rounded,
+                          size: 21,
+                        ),
                         hintStyle: TextStyle(),
                       ),
                     ),
