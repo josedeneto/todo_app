@@ -43,6 +43,7 @@ class AppTheme {
           fillColor: AppColor.textField,
           errorBorder: AppStyle.errorBorder,
           isDense: true,
+          
           border: AppStyle.defaultBorder,
           focusedBorder: AppStyle.focusedBorder,
         ),

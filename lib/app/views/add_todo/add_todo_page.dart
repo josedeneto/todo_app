@@ -1,4 +1,6 @@
+import 'package:app_todo/app/utils/constants/app_constants.dart';
 import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
+import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import '../../utils/colors/app_color.dart';
@@ -16,11 +18,15 @@ class _AddTodoPageState extends State<AddTodoPage>
     with Validator, MessageValidator {
   late TextEditingController todoController;
   late TextEditingController dateController;
+  late TextEditingController initHourController;
+  late TextEditingController finalHourController;
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     todoController = TextEditingController();
     dateController = TextEditingController();
+    initHourController = TextEditingController();
+    finalHourController = TextEditingController();
     super.initState();
   }
 
@@ -28,6 +34,8 @@ class _AddTodoPageState extends State<AddTodoPage>
   void dispose() {
     todoController.dispose();
     dateController.dispose();
+    initHourController.dispose();
+    finalHourController.dispose();
     super.dispose();
   }
 
@@ -36,7 +44,7 @@ class _AddTodoPageState extends State<AddTodoPage>
     return Scaffold(
       appBar: AppBarWidget(
         title: const Text(
-          'Adicionar tarefa',
+          AppConstants.addTodo,
         ),
       ),
       body: Padding(
@@ -48,7 +56,6 @@ class _AddTodoPageState extends State<AddTodoPage>
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
                 controller: todoController,
@@ -60,7 +67,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                     Icons.access_time_rounded,
                     size: 21,
                   ),
-                  hintText: 'O que planeja hoje?',
+                  hintText: AppConstants.whatYourPlane,
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -72,6 +79,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 height: 15,
               ),
               TextFormField(
+                controller: dateController,
                 readOnly: true,
                 onTap: () {
                   showDatePicker(
@@ -85,9 +93,10 @@ class _AddTodoPageState extends State<AddTodoPage>
                     });
                   });
                 },
+                style: const TextStyle(color: AppColor.white),
                 cursorColor: AppColor.secondary,
                 decoration: InputDecoration(
-                  hintText: dateController.text,
+                  hintText: DateTime.now().toString(),
                   prefixIcon: const Icon(
                     Icons.calendar_month_outlined,
                     size: 25,
@@ -99,6 +108,42 @@ class _AddTodoPageState extends State<AddTodoPage>
                   });
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      style: const TextStyle(color: AppColor.white),
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.access_time_rounded, size: 21,),
+                        hintText: '7:00',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      AppConstants.to,
+                      style: AppTypography.normal!.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      style: const TextStyle(color: AppColor.white),
+                      decoration: const InputDecoration(
+                        hintText: '10:00',
+                         prefixIcon: Icon(Icons.access_time_rounded, size: 21,),
+                        hintStyle: TextStyle(),
+                      ),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
