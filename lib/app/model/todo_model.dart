@@ -1,8 +1,10 @@
 class TodoModel {
   String title;
-  String dataTime;
+  DateTime dataTime;
+  DateTime time;
   TodoModel({
     required this.title,
     required this.dataTime,
+    required this.time,
   });
 }

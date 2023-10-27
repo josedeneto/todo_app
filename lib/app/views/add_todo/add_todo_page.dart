@@ -84,7 +84,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 },
                 cursorColor: AppColor.secondary,
                 decoration: const InputDecoration(
-                  hintText: 'Quando?',
+                  hintText: 'Quando',
                   prefixIcon: Icon(
                     Icons.calendar_month_outlined,
                     size: 25,
