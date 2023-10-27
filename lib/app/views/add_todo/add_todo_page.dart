@@ -1,10 +1,9 @@
-import 'package:app_todo/app/utils/helpers/navigators_extension.dart';
-import 'package:app_todo/app/utils/helpers/todo_validators.dart';
+import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/colors/app_color.dart';
-import '../../utils/helpers/messages_validate.dart';
+import '../../utils/helpers/mixins/messages_validate.dart';
+import '../../utils/helpers/mixins/todo_validators.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -96,9 +95,6 @@ class _AddTodoPageState extends State<AddTodoPage>
                     dateController.text = value;
                   });
                 },
-              ),
-              const SizedBox(
-                height: 15,
               ),
             ],
           ),

@@ -1,12 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:app_todo/app/pages/home/widgets/filter_chip_component.dart';
+import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app_todo/app/utils/constants/app_constants.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
-import 'package:app_todo/app/utils/helpers/navigators_extension.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
+
+import 'widgets/filter_chip_component.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -56,14 +56,11 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 18,
                     ),
                   ),
-                  TextSpan(
-                    text: ' Neto',
-                    style: AppTypography.boldText
-                  ),
+                  TextSpan(text: ' Neto', style: AppTypography.boldText),
                 ],
               ),
             ),
-             const SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Row(
@@ -89,10 +86,12 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 25,
             ),
-            Text('Minhas tarefas',
-                style: AppTypography.boldText!.copyWith(
-                  fontWeight: FontWeight.w400,
-                ),),
+            Text(
+              'Minhas tarefas',
+              style: AppTypography.boldText!.copyWith(
+                fontWeight: FontWeight.w400,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -125,16 +124,16 @@ class _HomePageState extends State<HomePage> {
                       separatorBuilder: (_, i) => const Divider(),
                       itemCount: todos.length,
                       itemBuilder: (_, index) => ListTile(
-                        selectedColor:AppColor.selectedColor,
+                        selectedColor: AppColor.selectedColor,
                         selectedTileColor: AppColor.selectTile,
                         selected: done.contains(todos[index]),
                         onTap: () {
                           setState(() {
-                            if(done.contains(todos[index])){
-                            done.remove(todos[index]);
-                          } else{
-                            done.add(todos[index]);
-                          }
+                            if (done.contains(todos[index])) {
+                              done.remove(todos[index]);
+                            } else {
+                              done.add(todos[index]);
+                            }
                           });
                         },
                         leading: Text(
