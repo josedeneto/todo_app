@@ -32,7 +32,10 @@ class _SettingsPageState extends State<SettingsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Toque de alarme'),
-                Switch.adaptive(value: true, onChanged: (value) {})
+                Switch.adaptive(
+                  value: true,
+                  onChanged: (value) {},
+                )
               ],
             )
           ],
