@@ -56,7 +56,10 @@ class _AddTodoPageState extends State<AddTodoPage>
                 validator: validatorTodo,
                 cursorColor: AppColor.secondary,
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.access_time_rounded),
+                  prefixIcon: Icon(
+                    Icons.access_time_rounded,
+                    size: 21,
+                  ),
                   hintText: 'O que planeja hoje?',
                 ),
                 onChanged: (value) {
@@ -83,9 +86,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                   });
                 },
                 cursorColor: AppColor.secondary,
-                decoration: const InputDecoration(
-                  hintText: 'Quando',
-                  prefixIcon: Icon(
+                decoration: InputDecoration(
+                  hintText: dateController.text,
+                  prefixIcon: const Icon(
                     Icons.calendar_month_outlined,
                     size: 25,
                   ),
