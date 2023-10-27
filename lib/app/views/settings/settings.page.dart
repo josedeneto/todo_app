@@ -1,3 +1,4 @@
+import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,18 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Notificações',
-              style: AppTypography.boldText,
+            Row(
+              children: [
+                const Icon(
+                  Icons.volume_up_rounded,
+                  color: AppColor.secondary,
+                ),
+                const SizedBox(width: 10,),
+                Text(
+                  'Notificações',
+                  style: AppTypography.boldText,
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

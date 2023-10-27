@@ -3,6 +3,7 @@ import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart'
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../utils/colors/app_color.dart';
 import '../../utils/helpers/mixins/messages_validate.dart';
 import '../../utils/helpers/mixins/todo_validators.dart';
@@ -20,6 +21,7 @@ class _AddTodoPageState extends State<AddTodoPage>
   late TextEditingController dateController;
   late TextEditingController initHourController;
   late TextEditingController finalHourController;
+  final data = DateFormat.yMEd().format(DateTime.now());
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -37,6 +39,23 @@ class _AddTodoPageState extends State<AddTodoPage>
     initHourController.dispose();
     finalHourController.dispose();
     super.dispose();
+  }
+
+  void showDateTime() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2030))
+        .then((value) {
+      setState(() {
+        dateController.text = DateFormat.yMEd()
+            .format(
+              value!,
+            )
+            .toString();
+      });
+    });
   }
 
   @override
@@ -81,32 +100,16 @@ class _AddTodoPageState extends State<AddTodoPage>
               TextFormField(
                 controller: dateController,
                 readOnly: true,
-                onTap: () {
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now())
-                      .then((value) {
-                    setState(() {
-                      dateController.text = value.toString();
-                    });
-                  });
-                },
+                onTap: showDateTime,
                 style: const TextStyle(color: AppColor.white),
                 cursorColor: AppColor.secondary,
                 decoration: InputDecoration(
-                  hintText: DateTime.now().toString(),
+                  hintText: data,
                   prefixIcon: const Icon(
                     Icons.calendar_month_outlined,
                     size: 25,
                   ),
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    dateController.text = value;
-                  });
-                },
               ),
               const SizedBox(
                 height: 10,

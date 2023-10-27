@@ -23,7 +23,7 @@ class AppTodo extends StatelessWidget {
           body: HomePage(),
         ),
         theme: AppTheme.theme,
-        initialRoute: '/settings',
+        initialRoute: '/home',
         routes: {
           '/home': (context) => const HomePage(),
           '/add_todo': (context) => const AddTodoPage(),
