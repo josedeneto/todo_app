@@ -56,7 +56,10 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 18,
                     ),
                   ),
-                  TextSpan(text: ' Neto', style: AppTypography.boldText),
+                  TextSpan(
+                    text: ' Neto',
+                    style: AppTypography.boldText,
+                  ),
                 ],
               ),
             ),
@@ -124,28 +127,28 @@ class _HomePageState extends State<HomePage> {
                       separatorBuilder: (_, i) => const Divider(),
                       itemCount: context.read<HomeController>().todos.length,
                       itemBuilder: (_, t) {
-                        final todo = context.read<HomeController>();
-                        final done = context.read<HomeController>();
-                        return ListTile(
-                          selected: context
-                              .read<HomeController>()
-                              .done
-                              .contains(todo.todos[t]),
-                          onTap: (){
-                            done.doneTodo(
-                            todo.todos[t],
+                        return Consumer<HomeController>(
+                            builder: (_, todo, child) {
+                          return ListTile(
+                            selected: todo.done.contains(
+                              todo.todos[t],
+                            ),
+                            onTap: () {
+                              todo.doneTodo(
+                                todo.todos[t],
+                              );
+                            },
+                            leading: Text(
+                              '${t + 1} -',
+                            ),
+                            title: Text(
+                              todo.todos[t].title,
+                            ),
+                            subtitle: Text(
+                              todo.todos[t].dataTime,
+                            ),
                           );
-                          },
-                          leading: Text(
-                            '${t + 1} -',
-                          ),
-                          title: Text(
-                            todo.todos[t].title,
-                          ),
-                          subtitle: Text(
-                            todo.todos[t].dataTime,
-                          ),
-                        );
+                        });
                       },
                     ),
                   ),
