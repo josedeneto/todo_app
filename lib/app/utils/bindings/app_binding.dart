@@ -24,5 +24,3 @@ class AppBinding extends StatelessWidget {
     );
   }
 }
-
-//543 878 226 275 6
