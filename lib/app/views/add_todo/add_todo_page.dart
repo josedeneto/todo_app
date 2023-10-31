@@ -1,9 +1,12 @@
+import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/utils/constants/app_constants.dart';
 import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
+import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../../utils/colors/app_color.dart';
 import '../../utils/helpers/mixins/messages_validate.dart';
 import '../../utils/helpers/mixins/todo_validators.dart';
@@ -21,7 +24,7 @@ class _AddTodoPageState extends State<AddTodoPage>
   late TextEditingController dateController;
   late TextEditingController initHourController;
   late TextEditingController finalHourController;
-  final data = DateFormat.yMEd().format(DateTime.now());
+  final data = DateFormat.yMEd('pt_PT').format(DateTime.now());
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -49,11 +52,7 @@ class _AddTodoPageState extends State<AddTodoPage>
             lastDate: DateTime(2030))
         .then((value) {
       setState(() {
-        dateController.text = DateFormat.yMEd()
-            .format(
-              value!,
-            )
-            .toString();
+        dateController.text = DateFormat.yMEd('pt_PT').format(value!);
       });
     });
   }
@@ -163,12 +162,16 @@ class _AddTodoPageState extends State<AddTodoPage>
               onPressed: () {
                 final valid = _formKey.currentState!.validate();
                 if (valid) {
-                  messageValidator();
-                  context.pop(
-                    const AddTodoPage(),
-                    todoController.text,
-                  );
+                  context.read<HomeController>().addTodo(
+                        TodoModel(
+                          title: todoController.text,
+                          dataTime: dateController.text,
+                        ),
+                      );
                 }
+                context.pop(
+                  const AddTodoPage(),
+                );
               },
               child: const Icon(
                 Icons.check,

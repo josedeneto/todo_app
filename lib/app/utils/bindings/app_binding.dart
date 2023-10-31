@@ -1,10 +1,28 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
+import 'package:app_todo/app/views/add_todo/controller/add_todo_controller.dart';
+import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AppBinding {
+class AppBinding extends StatelessWidget {
   final Widget child;
-  AppBinding({
+  const AppBinding({
+    super.key,
     required this.child,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => HomeController(),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: child,
+      ),
+    );
+  }
 }
+
+//543 878 226 275 6

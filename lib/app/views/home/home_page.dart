@@ -1,10 +1,12 @@
 import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
+import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app_todo/app/utils/constants/app_constants.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/filter_chip_component.dart';
 
@@ -16,8 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> todos = [];
-  List<String> done = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 FilterChipComponent(
                   title: 'Todas',
-                  todos: todos,
+                  todos: context.read<HomeController>().todos,
                   function: null,
                   isSelected: true,
                 ),
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 FilterChipComponent(
                   title: 'Feitas',
-                  todos: done,
+                  todos: context.read<HomeController>().done,
                   function: null,
                   isSelected: false,
                 ),
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 20,
             ),
-            todos.isEmpty
+            context.watch<HomeController>().todos.isEmpty
                 ? Expanded(
                     child: Center(
                       child: Column(
@@ -122,47 +122,46 @@ class _HomePageState extends State<HomePage> {
                         decelerationRate: ScrollDecelerationRate.fast,
                       ),
                       separatorBuilder: (_, i) => const Divider(),
-                      itemCount: todos.length,
-                      itemBuilder: (_, index) => ListTile(
-                        selected: done.contains(todos[index]),
-                        onTap: () {
-                          setState(() {
-                            if (done.contains(todos[index])) {
-                              done.remove(todos[index]);
-                            } else {
-                              done.add(todos[index]);
-                            }
-                          });
-                        },
-                        leading: Text(
-                          '${index + 1} -',
-                        ),
-                        title: Text(
-                          todos[index],
-                        ),
-                        
-                      ),
+                      itemCount: context.read<HomeController>().todos.length,
+                      itemBuilder: (_, t) {
+                        final todo = context.read<HomeController>();
+                        final done = context.read<HomeController>();
+                        return ListTile(
+                          selected: context
+                              .read<HomeController>()
+                              .done
+                              .contains(todo.todos[t]),
+                          onTap: (){
+                            done.doneTodo(
+                            todo.todos[t],
+                          );
+                          },
+                          leading: Text(
+                            '${t + 1} -',
+                          ),
+                          title: Text(
+                            todo.todos[t].title,
+                          ),
+                          subtitle: Text(
+                            todo.todos[t].dataTime,
+                          ),
+                        );
+                      },
                     ),
                   ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        highlightElevation: 0,
-        onPressed: () async {
-          final response = await context.pushNamed(page: '/add_todo');
-          if (response != null) {
-            setState(() {
-              todos.add(response.toString());
-            });
-          } else {
-            todos.add("");
-          }
+        onPressed: () {
+          context.pushNamed('/add_todo');
         },
         label: const Text(
           'Adicionar',
         ),
-        icon: const Icon(Icons.add),
+        icon: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }

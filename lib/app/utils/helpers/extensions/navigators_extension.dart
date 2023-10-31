@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension NavigatorExtends on BuildContext {
-  Future<dynamic> pushNamed({required String page}) async{
+  Future<dynamic> pushNamed(String page) async{
     return Navigator.pushNamed(this, page);
   }
 

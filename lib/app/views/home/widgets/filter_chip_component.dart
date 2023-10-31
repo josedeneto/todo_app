@@ -1,10 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:flutter/material.dart';
 
 class FilterChipComponent extends StatelessWidget {
   final String title;
-  final List<String> todos;
+  final List<TodoModel> todos;
   final Function(bool)? function;
   final bool isSelected;
   const FilterChipComponent(
