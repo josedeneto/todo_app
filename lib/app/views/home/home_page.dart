@@ -1,4 +1,5 @@
 import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
+import 'package:app_todo/app/utils/helpers/mixins/alert_dialog.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AlertsDialog {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,8 +91,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
-                  child:  Icon(
+                  onTap: () {
+                    showAlert(() {
+                      context.read<HomeController>().removeAllTodo();
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Icon(
                     Icons.more_vert_rounded,
                     color: AppColor.grey,
                   ),

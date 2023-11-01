@@ -19,6 +19,11 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeAllTodo(){
+    todos.clear();
+    notifyListeners();
+  }
+
   void removeTodo(TodoModel todoModel) {
     if (todos.contains(todoModel) || done.contains(todoModel)) {
       todos.remove(todoModel);
