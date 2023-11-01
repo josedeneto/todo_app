@@ -129,23 +129,32 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (_, t) {
                         return Consumer<HomeController>(
                             builder: (_, todo, child) {
-                          return ListTile(
-                            selected: todo.done.contains(
-                              todo.todos[t],
-                            ),
-                            onTap: () {
-                              todo.doneTodo(
-                                todo.todos[t],
-                              );
+                          return Dismissible(
+                            direction: DismissDirection.horizontal,
+                            onDismissed: (_) {
+                              todo.removeTodo(todo.todos[t]);
                             },
-                            leading: Text(
-                              '${t + 1} -',
+                            key: Key(
+                              t.toString(),
                             ),
-                            title: Text(
-                              todo.todos[t].title,
-                            ),
-                            subtitle: Text(
-                              todo.todos[t].dataTime,
+                            child: ListTile(
+                              selected: todo.done.contains(
+                                todo.todos[t],
+                              ),
+                              onTap: () {
+                                todo.doneTodo(
+                                  todo.todos[t],
+                                );
+                              },
+                              leading: Text(
+                                '${t + 1} -',
+                              ),
+                              title: Text(
+                                todo.todos[t].title,
+                              ),
+                              subtitle: Text(
+                                todo.todos[t].dataTime,
+                              ),
                             ),
                           );
                         });

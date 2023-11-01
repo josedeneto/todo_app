@@ -44,18 +44,7 @@ class _AddTodoPageState extends State<AddTodoPage>
     super.dispose();
   }
 
-  void showDateTime() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime.now(),
-            lastDate: DateTime(2030))
-        .then((value) {
-      setState(() {
-        dateController.text = DateFormat.yMEd('pt_PT').format(value!);
-      });
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +107,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 children: [
                   Expanded(
                     child: TextFormField(
+                      readOnly: true,
                       style: const TextStyle(color: AppColor.white),
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
@@ -162,12 +152,13 @@ class _AddTodoPageState extends State<AddTodoPage>
               onPressed: () {
                 final valid = _formKey.currentState!.validate();
                 if (valid) {
-                  context.read<HomeController>().addTodo(
-                        TodoModel(
-                          title: todoController.text,
-                          dataTime: dateController.text,
-                        ),
-                      );
+                  final add = context.read<HomeController>();
+                  add.addTodo(
+                    TodoModel(
+                      title: todoController.text,
+                      dataTime: dateController.text,
+                    ),
+                  );
                 }
                 context.pop(
                   const AddTodoPage(),
@@ -179,4 +170,21 @@ class _AddTodoPageState extends State<AddTodoPage>
             ),
     );
   }
+  void showDateTime() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2030))
+        .then((value) {
+      setState(() {
+        dateController.text = DateFormat.yMEd('pt_PT').format(value!);
+      });
+    });
+  }
+
+  /*void showTime(){
+    showTimePicker(context: context, initialTime: initialTime)
+  }*/
 }
+
