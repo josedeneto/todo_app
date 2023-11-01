@@ -29,15 +29,6 @@ class _HomePageState extends State<HomePage> {
             fontSize: 24,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_vert_outlined,
-              color: AppColor.white,
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -89,11 +80,23 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 25,
             ),
-            Text(
-              'Minhas tarefas',
-              style: AppTypography.boldText!.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Minhas tarefas',
+                  style: AppTypography.boldText!.copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child:  Icon(
+                    Icons.more_vert_rounded,
+                    color: AppColor.grey,
+                  ),
+                )
+              ],
             ),
             const SizedBox(
               height: 20,
@@ -131,6 +134,21 @@ class _HomePageState extends State<HomePage> {
                             builder: (_, todo, child) {
                           return Dismissible(
                             direction: DismissDirection.horizontal,
+                            background: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.delete_outlined,
+                                  color: AppColor.red.shade700,
+                                ),
+                                Text(
+                                  AppConstants.deleteTask,
+                                  style: AppTypography.normal!.copyWith(
+                                      color: AppColor.red.shade700,
+                                      fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
                             onDismissed: (_) {
                               todo.removeTodo(todo.todos[t]);
                             },
