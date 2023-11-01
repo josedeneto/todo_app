@@ -38,18 +38,33 @@ class AppTheme {
             fontSize: 16,
           ),
         ),
+        dialogTheme: DialogTheme(
+          titleTextStyle: AppTypography.boldText!.copyWith(
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+          ),
+          contentTextStyle: AppTypography.normal,
+          backgroundColor: AppColor.border,
+        ),
+        datePickerTheme: DatePickerThemeData(
+          backgroundColor: AppColor.border,
+          dividerColor: AppColor.grey,
+          headerBackgroundColor: AppColor.secondary,
+          weekdayStyle: const TextStyle(color: AppColor.white),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: AppColor.textField,
           errorBorder: AppStyle.errorBorder,
           isDense: true,
-          
           border: AppStyle.defaultBorder,
           focusedBorder: AppStyle.focusedBorder,
         ),
         appBarTheme: AppBarTheme(
           foregroundColor: AppColor.white,
-          titleTextStyle: AppTypography.normal!.copyWith(fontSize: 18),
+          titleTextStyle: AppTypography.normal!.copyWith(
+            fontSize: 18,
+          ),
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
           ),

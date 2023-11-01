@@ -1,5 +1,3 @@
-import 'package:app_todo/app/utils/colors/app_color.dart';
-import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:flutter/material.dart';
 
 mixin AlertsDialog<T extends StatefulWidget> on State<T> {
@@ -8,9 +6,12 @@ mixin AlertsDialog<T extends StatefulWidget> on State<T> {
       context: context,
       builder: (_) {
         return AlertDialog.adaptive(
-          title:  Text('Remover todas as tarefas',style: AppTypography.boldText!.copyWith(color: AppColor.white),),
-          content:
-               Text('Tem a certeza que quer remover todas as tarefas', style: AppTypography.normal,),
+          title: const Text(
+            'Remover todas as tarefas',
+          ),
+          content: const Text(
+            'Tem a certeza que quer remover todas as tarefas?',
+          ),
           actions: [
             TextButton(
               onPressed: function,
