@@ -1,4 +1,3 @@
-import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:flutter/material.dart';
 

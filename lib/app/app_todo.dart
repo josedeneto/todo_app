@@ -1,9 +1,8 @@
 import 'package:app_todo/app/utils/bindings/app_binding.dart';
+import 'package:app_todo/app/utils/routes/app_routes.dart';
 import 'package:app_todo/app/utils/theme/app_theme.dart';
-import 'package:app_todo/app/views/settings/settings.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'views/add_todo/add_todo_page.dart';
 import 'views/home/home_page.dart';
 
 class AppTodo extends StatelessWidget {
@@ -24,12 +23,8 @@ class AppTodo extends StatelessWidget {
           body: HomePage(),
         ),
         theme: AppTheme.theme,
-        initialRoute: '/home',
-        routes: {
-          '/home': (context) => const HomePage(),
-          '/add_todo': (context) => const AddTodoPage(),
-          '/settings': (context) => const SettingsPage()
-        },
+        initialRoute: AppRoutes.home,
+        routes: AppRoutes.routes,
       ),
     );
   }
