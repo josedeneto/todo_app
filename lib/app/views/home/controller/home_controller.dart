@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class HomeController extends ChangeNotifier {
   List<TodoModel> done = [];
   List<TodoModel> todos = [];
+  bool isSelected = true;
 
   void addTodo(TodoModel todoModel) {
     todos.add(todoModel);
@@ -19,7 +20,7 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeAllTodo(){
+  void removeAllTodo() {
     todos.clear();
     notifyListeners();
   }
@@ -28,6 +29,15 @@ class HomeController extends ChangeNotifier {
     if (todos.contains(todoModel) || done.contains(todoModel)) {
       todos.remove(todoModel);
       done.remove(todoModel);
+    }
+    notifyListeners();
+  }
+
+  void toggleChip(bool value) {
+    if (isSelected) {
+      isSelected = !value;
+    } else {
+      isSelected = value;
     }
     notifyListeners();
   }

@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
   final hourFormati = DateFormat('H:mm').format(DateTime.now());
 
   late String saudacoes = greeting(hourFormati);
+  final pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +72,13 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                 FilterChipComponent(
                   title: 'Todas',
                   todos: context.read<HomeController>().todos.length,
-                  function: null,
-                  isSelected: true,
+                  function: (value) {
+                    context.read<HomeController>().toggleChip(value);
+                    pageController.previousPage(
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.ease);
+                  },
+                  isSelected: context.watch<HomeController>().isSelected,
                 ),
                 const SizedBox(
                   width: 15,
@@ -80,13 +86,21 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                 FilterChipComponent(
                   title: 'Feitas',
                   todos: context.read<HomeController>().done.length,
-                  function: null,
-                  isSelected: false,
+                  function: (value) {
+                    context.read<HomeController>().toggleChip(value);
+                    pageController.nextPage(
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.ease,
+                    );
+                  },
+                  isSelected: !context.watch<HomeController>().isSelected,
                 ),
               ],
             ),
             Expanded(
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: pageController,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,7 +238,31 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                             ),
                     ],
                   ),
-                  const Center(child: Text('Feita'))
+                  context.watch<HomeController>().done.isEmpty
+                      ? const Center(
+                          child:  Text('Nenhuma tarefa'),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                           const  Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children:  [
+                                Text('Tarefas feitas'),
+                                Icon(Icons.more_horiz)
+                              ],
+                            ),
+                            Consumer<HomeController>(builder: (_, doney, child) {
+                              return Expanded(
+                                child: ListView.builder(itemBuilder: (_, d) {
+                                  return ListTile(
+                                    title: Text(doney.done[d].title),
+                                  );
+                                }),
+                              );
+                            })
+                          ],
+                        )
                 ],
               ),
             )

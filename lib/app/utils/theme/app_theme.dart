@@ -33,7 +33,7 @@ class AppTheme {
         chipTheme: ChipThemeData(
           selectedColor: AppColor.secondary,
           checkmarkColor: AppColor.white,
-          disabledColor: AppColor.background,
+          backgroundColor: AppColor.background,
           labelStyle: AppTypography.boldText!.copyWith(
             fontSize: 16,
           ),
@@ -59,6 +59,10 @@ class AppTheme {
         datePickerTheme: DatePickerThemeData(
           backgroundColor: AppColor.border,
           dividerColor: AppColor.grey,
+          dayForegroundColor: const MaterialStatePropertyAll(AppColor.white),
+          dayOverlayColor:
+              const MaterialStatePropertyAll(AppColor.dayOverlayColor),
+          headerForegroundColor: AppColor.white,
           headerBackgroundColor: AppColor.secondary,
           weekdayStyle: const TextStyle(color: AppColor.white),
         ),

@@ -16,5 +16,6 @@ class AppColor {
    static const selectedColor = Color.fromARGB(255, 80, 77, 77);
    static const selectTile = Color.fromARGB(251, 27, 26, 27);
   static const hourColor =  Color.fromARGB(129, 63, 42, 110);
+  static const dayOverlayColor = Color.fromARGB(28, 130, 87, 229);
 
 }
