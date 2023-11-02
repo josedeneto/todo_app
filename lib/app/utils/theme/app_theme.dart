@@ -52,6 +52,13 @@ class AppTheme {
           headerBackgroundColor: AppColor.secondary,
           weekdayStyle: const TextStyle(color: AppColor.white),
         ),
+        timePickerTheme: const TimePickerThemeData(
+            backgroundColor: AppColor.border,
+            hourMinuteColor: AppColor.hourColor,
+            hourMinuteTextColor: AppColor.white,
+            entryModeIconColor: AppColor.white,
+            dialTextColor: AppColor.white,
+            ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: AppColor.textField,

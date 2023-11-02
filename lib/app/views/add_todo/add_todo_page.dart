@@ -25,6 +25,7 @@ class _AddTodoPageState extends State<AddTodoPage>
   late TextEditingController initHourController;
   late TextEditingController finalHourController;
   final data = DateFormat.yMEd('pt_PT').format(DateTime.now());
+  final hora = TimeOfDay.now().hour;
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -43,8 +44,6 @@ class _AddTodoPageState extends State<AddTodoPage>
     finalHourController.dispose();
     super.dispose();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -108,13 +107,14 @@ class _AddTodoPageState extends State<AddTodoPage>
                   Expanded(
                     child: TextFormField(
                       readOnly: true,
+                      onTap: showTime,
                       style: const TextStyle(color: AppColor.white),
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
                           Icons.access_time_rounded,
                           size: 21,
                         ),
-                        hintText: '7:00',
+                        hintText: hora.toString(),
                       ),
                     ),
                   ),
@@ -170,6 +170,7 @@ class _AddTodoPageState extends State<AddTodoPage>
             ),
     );
   }
+
   void showDateTime() {
     showDatePicker(
             context: context,
@@ -183,8 +184,12 @@ class _AddTodoPageState extends State<AddTodoPage>
     });
   }
 
-  /*void showTime(){
-    showTimePicker(context: context, initialTime: initialTime)
-  }*/
+  void showTime() {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) {
+      setState(() {});
+    });
+  }
 }
-
