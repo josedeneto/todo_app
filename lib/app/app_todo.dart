@@ -3,7 +3,6 @@ import 'package:app_todo/app/utils/routes/app_routes.dart';
 import 'package:app_todo/app/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'views/home/home_page.dart';
 
 class AppTodo extends StatelessWidget {
   const AppTodo({super.key});
@@ -19,9 +18,6 @@ class AppTodo extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate
         ],
         supportedLocales: const [Locale('pt', 'PT')],
-        home: const Scaffold(
-          body: HomePage(),
-        ),
         theme: AppTheme.theme,
         initialRoute: AppRoutes.home,
         routes: AppRoutes.routes,
