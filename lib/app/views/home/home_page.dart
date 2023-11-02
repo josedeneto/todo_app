@@ -91,18 +91,21 @@ class _HomePageState extends State<HomePage> with AlertsDialog {
                   ),
                 ),
                 PopupMenuButton(
-                  
+                    icon: Icon(
+                      Icons.more_vert_rounded,
+                      color: AppColor.grey,
+                    ),
                     itemBuilder: (_) {
                       return [
-                      const  PopupMenuItem(
+                        const PopupMenuItem(
                           value: 1,
                           child: Text('Filtrar por data'),
                         ),
-                      const  PopupMenuItem(
+                        const PopupMenuItem(
                           value: 2,
                           child: Text('Filtrar por nome'),
                         ),
-                       const PopupMenuItem(
+                        const PopupMenuItem(
                           value: 3,
                           child: Text('Filtrar por numero'),
                         ),

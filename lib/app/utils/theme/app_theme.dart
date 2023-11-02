@@ -46,11 +46,15 @@ class AppTheme {
           contentTextStyle: AppTypography.normal,
           backgroundColor: AppColor.border,
         ),
-        popupMenuTheme:const PopupMenuThemeData(
-          
+        popupMenuTheme: const PopupMenuThemeData(
           elevation: 0,
+          enableFeedback: true,
           color: AppColor.border,
-          textStyle: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 102, 29, 24))
+          labelTextStyle: MaterialStatePropertyAll(
+            TextStyle(
+              color: AppColor.white,
+            ),
+          ),
         ),
         datePickerTheme: DatePickerThemeData(
           backgroundColor: AppColor.border,
@@ -59,12 +63,12 @@ class AppTheme {
           weekdayStyle: const TextStyle(color: AppColor.white),
         ),
         timePickerTheme: const TimePickerThemeData(
-            backgroundColor: AppColor.border,
-            hourMinuteColor: AppColor.hourColor,
-            hourMinuteTextColor: AppColor.white,
-            entryModeIconColor: AppColor.white,
-            dialTextColor: AppColor.white,
-            ),
+          backgroundColor: AppColor.border,
+          hourMinuteColor: AppColor.hourColor,
+          hourMinuteTextColor: AppColor.white,
+          entryModeIconColor: AppColor.white,
+          dialTextColor: AppColor.white,
+        ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: AppColor.textField,
