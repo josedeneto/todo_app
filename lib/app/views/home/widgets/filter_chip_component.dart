@@ -1,4 +1,5 @@
 import 'package:app_todo/app/utils/colors/app_color.dart';
+import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:flutter/material.dart';
 
 class FilterChipComponent extends StatelessWidget {
@@ -21,12 +22,16 @@ class FilterChipComponent extends StatelessWidget {
       selected: isSelected,
       label: Text(
         '$title($todos)',
+        style: AppTypography.boldText!.copyWith(
+          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w500,
+          fontSize: 16,
+        ),
       ),
       onSelected: function,
       side: !isSelected
           ? const BorderSide(
               color: AppColor.hint,
-              width: 1,
+              width: 0.30,
               style: BorderStyle.solid,
             )
           : BorderSide.none,

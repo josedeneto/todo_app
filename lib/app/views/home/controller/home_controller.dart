@@ -33,6 +33,11 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeAllTodoDone(){
+    done.clear();
+    notifyListeners();
+  }
+
   void toggleChip(bool value) {
     if (isSelected) {
       isSelected = !value;

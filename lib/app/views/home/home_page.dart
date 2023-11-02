@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/filter_chip_component.dart';
+import 'widgets/title_and_filter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -105,49 +106,34 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Minhas tarefas',
-                            style: AppTypography.boldText!.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TitleAndFilter(
+                        title: 'Minhas tarefas',
+                        filter: [
+                          const PopupMenuItem(
+                            value: 1,
+                            child: Text('Filtrar por data'),
                           ),
-                          PopupMenuButton(
-                              icon: Icon(
-                                Icons.more_vert_rounded,
-                                color: AppColor.grey,
-                              ),
-                              itemBuilder: (_) {
-                                return [
-                                  const PopupMenuItem(
-                                    value: 1,
-                                    child: Text('Filtrar por data'),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: 2,
-                                    child: Text('Filtrar por nome'),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: 3,
-                                    child: Text('Filtrar por numero'),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 4,
-                                    child:
-                                        const Text('Deletar todas as tarefas'),
-                                    onTap: () {
-                                      showAlert(() {
-                                        context
-                                            .read<HomeController>()
-                                            .removeAllTodo();
-                                        Navigator.pop(context);
-                                      });
-                                    },
-                                  )
-                                ];
-                              })
+                          const PopupMenuItem(
+                            value: 2,
+                            child: Text('Filtrar por nome'),
+                          ),
+                          const PopupMenuItem(
+                            value: 3,
+                            child: Text('Filtrar por numero'),
+                          ),
+                          PopupMenuItem(
+                            value: 4,
+                            child: const Text('Deletar todas as tarefas'),
+                            onTap: () {
+                              showAlert(() {
+                                context.read<HomeController>().removeAllTodo();
+                                Navigator.pop(context);
+                              });
+                            },
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -240,25 +226,39 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                   ),
                   context.watch<HomeController>().done.isEmpty
                       ? const Center(
-                          child:  Text('Nenhuma tarefa'),
+                          child: Text('Nenhuma tarefa'),
                         )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                           const  Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children:  [
-                                Text('Tarefas feitas'),
-                                Icon(Icons.more_horiz)
-                              ],
+                            const SizedBox(
+                              height: 15,
                             ),
-                            Consumer<HomeController>(builder: (_, doney, child) {
+                            TitleAndFilter(title: 'Tarefas feitas', filter: [
+                              PopupMenuItem(
+                                value: 1,
+                                child: const Text(
+                                  'Eliminar todas',
+                                ),
+                                onTap: () {
+                                  showAlert(() {
+                                    context
+                                        .read<HomeController>()
+                                        .removeAllTodoDone();
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ]),
+                            Consumer<HomeController>(builder: (_, done, child) {
                               return Expanded(
-                                child: ListView.builder(itemBuilder: (_, d) {
-                                  return ListTile(
-                                    title: Text(doney.done[d].title),
-                                  );
-                                }),
+                                child: ListView.builder(
+                                    itemCount: done.done.length,
+                                    itemBuilder: (_, d) {
+                                      return ListTile(
+                                        title: Text(done.done[d].title),
+                                      );
+                                    }),
                               );
                             })
                           ],

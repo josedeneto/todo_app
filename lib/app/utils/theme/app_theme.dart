@@ -30,13 +30,11 @@ class AppTheme {
             color: AppColor.white,
           ),
         ),
-        chipTheme: ChipThemeData(
+        chipTheme: const ChipThemeData(
           selectedColor: AppColor.secondary,
           checkmarkColor: AppColor.white,
           backgroundColor: AppColor.background,
-          labelStyle: AppTypography.boldText!.copyWith(
-            fontSize: 16,
-          ),
+          
         ),
         dialogTheme: DialogTheme(
           titleTextStyle: AppTypography.boldText!.copyWith(
