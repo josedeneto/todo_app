@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class FilterChipComponent extends StatelessWidget {
   final String title;
-  final List<TodoModel> todos;
+  final int todos;
   final Function(bool)? function;
   final bool isSelected;
   const FilterChipComponent(
@@ -21,7 +21,7 @@ class FilterChipComponent extends StatelessWidget {
       showCheckmark: false,
       selected: isSelected,
       label: Text(
-        '$title(${todos.length})',
+        '$title($todos)',
       ),
       onSelected: function,
       side: !isSelected

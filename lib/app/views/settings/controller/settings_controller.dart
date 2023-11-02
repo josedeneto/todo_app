@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SettingsController extends ChangeNotifier{
-  var onNotify = true;
+class SettingsController extends ChangeNotifier {
+  bool onNotify = true;
 
-  changeNotification(bool value){
+  void changeNotification(value) {
     onNotify = value;
     notifyListeners();
   }

@@ -25,8 +25,10 @@ class _AddTodoPageState extends State<AddTodoPage>
   late TextEditingController initHourController;
   late TextEditingController finalHourController;
   final data = DateFormat.yMEd('pt_PT').format(DateTime.now());
-  final hora = TimeOfDay.now().hour;
+
   final _formKey = GlobalKey<FormState>();
+  final hourFormat = DateFormat('hh:mm').format(DateTime.now());
+
   @override
   void initState() {
     todoController = TextEditingController();
@@ -106,6 +108,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: initHourController,
                       readOnly: true,
                       onTap: showTime,
                       style: const TextStyle(color: AppColor.white),
@@ -114,7 +117,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                           Icons.access_time_rounded,
                           size: 21,
                         ),
-                        hintText: hora.toString(),
+                        hintText: hourFormat.toString(),
                       ),
                     ),
                   ),
@@ -189,7 +192,12 @@ class _AddTodoPageState extends State<AddTodoPage>
       context: context,
       initialTime: TimeOfDay.now(),
     ).then((value) {
-      setState(() {});
+      setState(() {
+        initHourController.text = DateFormat('HH:mm').format(
+          DateTime(value?.hour ?? 0,
+          value?.minute ?? 0,));
+        
+      });
     });
   }
 }

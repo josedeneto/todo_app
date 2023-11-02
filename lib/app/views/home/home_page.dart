@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog {
               children: [
                 FilterChipComponent(
                   title: 'Todas',
-                  todos: context.read<HomeController>().todos,
+                  todos: context.read<HomeController>().todos.length,
                   function: null,
                   isSelected: true,
                 ),
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog {
                 ),
                 FilterChipComponent(
                   title: 'Feitas',
-                  todos: context.read<HomeController>().done,
+                  todos: context.read<HomeController>().done.length,
                   function: null,
                   isSelected: false,
                 ),
@@ -90,18 +90,43 @@ class _HomePageState extends State<HomePage> with AlertsDialog {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                InkWell(
+                PopupMenuButton(
+                  
+                    itemBuilder: (_) {
+                      return [
+                      const  PopupMenuItem(
+                          value: 1,
+                          child: Text('Filtrar por data'),
+                        ),
+                      const  PopupMenuItem(
+                          value: 2,
+                          child: Text('Filtrar por nome'),
+                        ),
+                       const PopupMenuItem(
+                          value: 3,
+                          child: Text('Filtrar por numero'),
+                        ),
+                        PopupMenuItem(
+                          value: 4,
+                          child: const Text('Deletar todas as tarefas'),
+                          onTap: () {
+                            showAlert(() {
+                              context.read<HomeController>().removeAllTodo();
+                              Navigator.pop(context);
+                            });
+                          },
+                        )
+                      ];
+                    })
+                /*InkWell(
                   onTap: () {
-                    showAlert(() {
-                      context.read<HomeController>().removeAllTodo();
-                      Navigator.pop(context);
-                    });
-                  },
+                    
+                  }
                   child: Icon(
                     Icons.more_vert_rounded,
                     color: AppColor.grey,
                   ),
-                )
+                )*/
               ],
             ),
             const SizedBox(

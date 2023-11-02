@@ -46,6 +46,12 @@ class AppTheme {
           contentTextStyle: AppTypography.normal,
           backgroundColor: AppColor.border,
         ),
+        popupMenuTheme:const PopupMenuThemeData(
+          
+          elevation: 0,
+          color: AppColor.border,
+          textStyle: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 102, 29, 24))
+        ),
         datePickerTheme: DatePickerThemeData(
           backgroundColor: AppColor.border,
           dividerColor: AppColor.grey,
