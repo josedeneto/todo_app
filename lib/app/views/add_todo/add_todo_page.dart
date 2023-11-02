@@ -55,9 +55,100 @@ class _AddTodoPageState extends State<AddTodoPage>
           AppConstants.addTodo,
         ),
       ),
-      body:PageView(
-        children: [],
-      ), 
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 20,
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: todoController,
+                style: const TextStyle(color: AppColor.white),
+                validator: validatorTodo,
+                cursorColor: AppColor.secondary,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.access_time_rounded,
+                    size: 21,
+                  ),
+                  hintText: AppConstants.whatYourPlane,
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    todoController.text = value;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                controller: dateController,
+                readOnly: true,
+                onTap: showDateTime,
+                style: const TextStyle(color: AppColor.white),
+                cursorColor: AppColor.secondary,
+                decoration: InputDecoration(
+                  hintText: data,
+                  prefixIcon: const Icon(
+                    Icons.calendar_month_outlined,
+                    size: 25,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: initHourController,
+                      readOnly: true,
+                      onTap: showTime,
+                      style: const TextStyle(color: AppColor.white),
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.access_time_rounded,
+                          size: 21,
+                        ),
+                        hintText: hourFormat.toString(),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      AppConstants.to,
+                      style: AppTypography.normal!.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      style: const TextStyle(color: AppColor.white),
+                      decoration: const InputDecoration(
+                        hintText: '10:00',
+                        prefixIcon: Icon(
+                          Icons.access_time_rounded,
+                          size: 21,
+                        ),
+                        hintStyle: TextStyle(),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: todoController.text.isEmpty
           ? null
           : FloatingActionButton(
