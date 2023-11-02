@@ -1,5 +1,6 @@
 import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/utils/helpers/mixins/alert_dialog.dart';
+import 'package:app_todo/app/utils/helpers/mixins/greeting.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ import 'package:app_todo/app/utils/constants/app_constants.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/filter_chip_component.dart';
@@ -18,14 +20,18 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AlertsDialog {
+class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
+  final hourFormati = DateFormat('H:mm').format(DateTime.now());
+
+  late String saudacoes = greeting(hourFormati);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
         implyLeading: false,
         title: Text(
-          'Olá',
+          saudacoes,
           style: AppTypography.boldText!.copyWith(
             fontSize: 24,
           ),
@@ -121,15 +127,6 @@ class _HomePageState extends State<HomePage> with AlertsDialog {
                         )
                       ];
                     })
-                /*InkWell(
-                  onTap: () {
-                    
-                  }
-                  child: Icon(
-                    Icons.more_vert_rounded,
-                    color: AppColor.grey,
-                  ),
-                )*/
               ],
             ),
             const SizedBox(
