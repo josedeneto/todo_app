@@ -14,18 +14,24 @@ class TodoTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      selected: context.watch<HomeController>().done.contains(todoModel),
-      onTap: () {
-        context.read<HomeController>().doneTodo(
-              todoModel,
-            );
-      },
+      
+     leading: Row(
+      children: [
+        Text(todoModel.time)
+      ],
+     ),
       title: Text(
         todoModel.title,
       ),
       subtitle: Text(
         todoModel.dataTime,
       ),
+      selected: context.watch<HomeController>().done.contains(todoModel),
+       onTap: () {
+        context.read<HomeController>().doneTodo(
+              todoModel,
+            );
+      },
     );
   }
 }

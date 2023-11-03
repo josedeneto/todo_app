@@ -3,6 +3,7 @@ import 'package:app_todo/app/utils/helpers/mixins/alert_dialog.dart';
 import 'package:app_todo/app/utils/helpers/mixins/greeting.dart';
 import 'package:app_todo/app/utils/routes/app_routes.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
+import 'package:app_todo/app/views/home/widgets/todo_tile_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app_todo/app/utils/constants/app_constants.dart';
@@ -42,11 +43,10 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-          saudacoes,
-          style: AppTypography.boldText!.copyWith(
-            fontSize: 24, fontWeight: FontWeight.w600
-          ),
-        ),
+                saudacoes,
+                style: AppTypography.boldText!
+                    .copyWith(fontSize: 24, fontWeight: FontWeight.w600),
+              ),
               Text(
                 'José Neto',
                 style: AppTypography.normal!.copyWith(
@@ -118,7 +118,9 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                               child: const Text('Deletar todas as tarefas'),
                               onTap: () {
                                 showAlert(() {
-                                  context.read<HomeController>().removeAllTodo();
+                                  context
+                                      .read<HomeController>()
+                                      .removeAllTodo();
                                   Navigator.pop(context);
                                 });
                               },
@@ -152,11 +154,14 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                             : Expanded(
                                 child: ListView.separated(
                                   physics: const BouncingScrollPhysics(
-                                    decelerationRate: ScrollDecelerationRate.fast,
+                                    decelerationRate:
+                                        ScrollDecelerationRate.fast,
                                   ),
                                   separatorBuilder: (_, i) => const Divider(),
-                                  itemCount:
-                                      context.read<HomeController>().todos.length,
+                                  itemCount: context
+                                      .read<HomeController>()
+                                      .todos
+                                      .length,
                                   itemBuilder: (_, t) {
                                     return Consumer<HomeController>(
                                         builder: (_, todo, child) {
@@ -201,13 +206,14 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                                   },
                                 ),
                               ]),
-                              Consumer<HomeController>(builder: (_, done, child) {
+                              Consumer<HomeController>(
+                                  builder: (_, done, child) {
                                 return Expanded(
                                   child: ListView.builder(
                                       itemCount: done.done.length,
                                       itemBuilder: (_, d) {
-                                        return ListTile(
-                                          title: Text(done.done[d].title),
+                                        return TodoTileWidget(
+                                          todoModel: done.done[d],
                                         );
                                       }),
                                 );
