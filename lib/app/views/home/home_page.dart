@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:app_todo/app/utils/constants/app_constants.dart';
 import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
-import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -32,205 +31,194 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-        implyLeading: false,
-        title: Text(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+            horizontal: 20,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
           saudacoes,
           style: AppTypography.boldText!.copyWith(
-            fontSize: 24,
+            fontSize: 24, fontWeight: FontWeight.w600
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 0,
-          horizontal: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'José',
-                    style: AppTypography.normal!.copyWith(
-                      fontSize: 18,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' Neto',
-                    style: AppTypography.boldText,
-                  ),
-                ],
+              Text(
+                'José Neto',
+                style: AppTypography.normal!.copyWith(
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                FilterChipComponent(
-                  title: 'Todas',
-                  todos: context.read<HomeController>().todos.length,
-                  function: (value) {
-                    context.read<HomeController>().toggleChip(value);
-                    pageController.previousPage(
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  FilterChipComponent(
+                    title: 'Todas',
+                    todos: context.read<HomeController>().todos.length,
+                    function: (value) {
+                      context.read<HomeController>().toggleChip(value);
+                      pageController.previousPage(
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.ease);
+                    },
+                    isSelected: context.watch<HomeController>().isSelected,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  FilterChipComponent(
+                    title: 'Feitas',
+                    todos: context.read<HomeController>().done.length,
+                    function: (value) {
+                      context.read<HomeController>().toggleChip(value);
+                      pageController.nextPage(
                         duration: const Duration(seconds: 1),
-                        curve: Curves.ease);
-                  },
-                  isSelected: context.watch<HomeController>().isSelected,
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                FilterChipComponent(
-                  title: 'Feitas',
-                  todos: context.read<HomeController>().done.length,
-                  function: (value) {
-                    context.read<HomeController>().toggleChip(value);
-                    pageController.nextPage(
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.ease,
-                    );
-                  },
-                  isSelected: !context.watch<HomeController>().isSelected,
-                ),
-              ],
-            ),
-            Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: pageController,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TitleAndFilter(
-                        title: 'Minhas tarefas',
-                        filter: [
-                          const PopupMenuItem(
-                            value: 1,
-                            child: Text('Filtrar por data'),
-                          ),
-                          const PopupMenuItem(
-                            value: 2,
-                            child: Text('Filtrar por nome'),
-                          ),
-                          const PopupMenuItem(
-                            value: 3,
-                            child: Text('Filtrar por numero'),
-                          ),
-                          PopupMenuItem(
-                            value: 4,
-                            child: const Text('Deletar todas as tarefas'),
-                            onTap: () {
-                              showAlert(() {
-                                context.read<HomeController>().removeAllTodo();
-                                Navigator.pop(context);
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      context.watch<HomeController>().todos.isEmpty
-                          ? Expanded(
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/3.png',
-                                      height: 150,
-                                    ),
-                                    Text(
-                                      AppConstants.messageNoTodo,
-                                      textAlign: TextAlign.center,
-                                      style: AppTypography.normal!.copyWith(
-                                        color: AppColor.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          : Expanded(
-                              child: ListView.separated(
-                                physics: const BouncingScrollPhysics(
-                                  decelerationRate: ScrollDecelerationRate.fast,
-                                ),
-                                separatorBuilder: (_, i) => const Divider(),
-                                itemCount:
-                                    context.read<HomeController>().todos.length,
-                                itemBuilder: (_, t) {
-                                  return Consumer<HomeController>(
-                                      builder: (_, todo, child) {
-                                    return DismissibleWidget(
-                                      onDismissed: (_) {
-                                        todo.removeTodo(todo.todos[t]);
-                                      },
-                                      todoModel: todo.todos[t],
-                                      keyTodo: Key(
-                                        t.toString(),
-                                      ),
-                                    );
-                                  });
-                                },
-                              ),
-                            ),
-                    ],
+                        curve: Curves.ease,
+                      );
+                    },
+                    isSelected: !context.watch<HomeController>().isSelected,
                   ),
-                  context.watch<HomeController>().done.isEmpty
-                      ? const Center(
-                          child: Text('Nenhuma tarefa'),
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            TitleAndFilter(title: 'Tarefas feitas', filter: [
-                              PopupMenuItem(
-                                value: 1,
-                                child: const Text(
-                                  'Eliminar todas',
-                                ),
-                                onTap: () {
-                                  showAlert(() {
-                                    context
-                                        .read<HomeController>()
-                                        .removeAllTodoDone();
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                            ]),
-                            Consumer<HomeController>(builder: (_, done, child) {
-                              return Expanded(
-                                child: ListView.builder(
-                                    itemCount: done.done.length,
-                                    itemBuilder: (_, d) {
-                                      return ListTile(
-                                        title: Text(done.done[d].title),
-                                      );
-                                    }),
-                              );
-                            })
-                          ],
-                        )
                 ],
               ),
-            )
-          ],
+              Expanded(
+                child: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: pageController,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        TitleAndFilter(
+                          title: 'Minhas tarefas',
+                          filter: [
+                            const PopupMenuItem(
+                              value: 1,
+                              child: Text('Filtrar por data'),
+                            ),
+                            const PopupMenuItem(
+                              value: 2,
+                              child: Text('Filtrar por nome'),
+                            ),
+                            const PopupMenuItem(
+                              value: 3,
+                              child: Text('Filtrar por numero'),
+                            ),
+                            PopupMenuItem(
+                              value: 4,
+                              child: const Text('Deletar todas as tarefas'),
+                              onTap: () {
+                                showAlert(() {
+                                  context.read<HomeController>().removeAllTodo();
+                                  Navigator.pop(context);
+                                });
+                              },
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        context.watch<HomeController>().todos.isEmpty
+                            ? Expanded(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/3.png',
+                                        height: 150,
+                                      ),
+                                      Text(
+                                        AppConstants.messageNoTodo,
+                                        textAlign: TextAlign.center,
+                                        style: AppTypography.normal!.copyWith(
+                                          color: AppColor.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Expanded(
+                                child: ListView.separated(
+                                  physics: const BouncingScrollPhysics(
+                                    decelerationRate: ScrollDecelerationRate.fast,
+                                  ),
+                                  separatorBuilder: (_, i) => const Divider(),
+                                  itemCount:
+                                      context.read<HomeController>().todos.length,
+                                  itemBuilder: (_, t) {
+                                    return Consumer<HomeController>(
+                                        builder: (_, todo, child) {
+                                      return DismissibleWidget(
+                                        onDismissed: (_) {
+                                          todo.removeTodo(todo.todos[t]);
+                                        },
+                                        todoModel: todo.todos[t],
+                                        keyTodo: Key(
+                                          t.toString(),
+                                        ),
+                                      );
+                                    });
+                                  },
+                                ),
+                              ),
+                      ],
+                    ),
+                    context.watch<HomeController>().done.isEmpty
+                        ? const Center(
+                            child: Text('Nenhuma tarefa'),
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              TitleAndFilter(title: 'Tarefas feitas', filter: [
+                                PopupMenuItem(
+                                  value: 1,
+                                  child: const Text(
+                                    'Eliminar todas',
+                                  ),
+                                  onTap: () {
+                                    showAlert(() {
+                                      context
+                                          .read<HomeController>()
+                                          .removeAllTodoDone();
+                                      Navigator.pop(context);
+                                    });
+                                  },
+                                ),
+                              ]),
+                              Consumer<HomeController>(builder: (_, done, child) {
+                                return Expanded(
+                                  child: ListView.builder(
+                                      itemCount: done.done.length,
+                                      itemBuilder: (_, d) {
+                                        return ListTile(
+                                          title: Text(done.done[d].title),
+                                        );
+                                      }),
+                                );
+                              })
+                            ],
+                          )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
