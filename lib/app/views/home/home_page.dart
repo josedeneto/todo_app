@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/dismissible_widget.dart';
-import 'widgets/filter_chip_component.dart';
+import 'widgets/filter_chip_widget.dart';
 import 'widgets/title_and_filter.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  FilterChipComponent(
+                  FilterChipWidget(
                     title: 'Todas',
                     todos: context.read<HomeController>().todos.length,
                     function: (value) {
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                   const SizedBox(
                     width: 15,
                   ),
-                  FilterChipComponent(
+                  FilterChipWidget(
                     title: 'Feitas',
                     todos: context.read<HomeController>().done.length,
                     function: (value) {

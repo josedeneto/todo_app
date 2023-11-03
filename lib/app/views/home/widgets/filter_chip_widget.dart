@@ -2,12 +2,12 @@ import 'package:app_todo/app/utils/colors/app_color.dart';
 import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:flutter/material.dart';
 
-class FilterChipComponent extends StatelessWidget {
+class FilterChipWidget extends StatelessWidget {
   final String title;
   final int todos;
   final Function(bool)? function;
   final bool isSelected;
-  const FilterChipComponent(
+  const FilterChipWidget(
       {Key? key,
       required this.title,
       required this.todos,
@@ -23,7 +23,7 @@ class FilterChipComponent extends StatelessWidget {
       label: Text(
         '$title($todos)',
         style: AppTypography.boldText!.copyWith(
-          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w500,
+          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w300,
           fontSize: 16,
         ),
       ),

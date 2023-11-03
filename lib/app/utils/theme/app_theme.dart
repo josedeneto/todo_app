@@ -18,7 +18,7 @@ class AppTheme {
           contentPadding: const EdgeInsets.only(left: 0),
           leadingAndTrailingTextStyle: AppTypography.normal,
           minLeadingWidth: 1,
-          horizontalTitleGap: 5,
+          horizontalTitleGap: 0,
           titleTextStyle: AppTypography.normal,
           selectedColor: AppColor.selectedColor,
           selectedTileColor: AppColor.selectTile,

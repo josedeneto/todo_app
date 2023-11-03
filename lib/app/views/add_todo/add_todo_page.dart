@@ -160,6 +160,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                     TodoModel(
                       title: todoController.text,
                       dataTime: dateController.text,
+                      time: initHourController.text
                     ),
                   );
                 }
