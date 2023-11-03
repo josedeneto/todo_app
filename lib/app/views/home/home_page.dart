@@ -1,6 +1,7 @@
 import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/utils/helpers/mixins/alert_dialog.dart';
 import 'package:app_todo/app/utils/helpers/mixins/greeting.dart';
+import 'package:app_todo/app/utils/routes/app_routes.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'widgets/dismissible_widget.dart';
 import 'widgets/filter_chip_component.dart';
 import 'widgets/title_and_filter.dart';
 
@@ -171,51 +173,13 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                                 itemBuilder: (_, t) {
                                   return Consumer<HomeController>(
                                       builder: (_, todo, child) {
-                                    return Dismissible(
-                                      direction: DismissDirection.horizontal,
-                                      background: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Icon(
-                                            Icons.delete_outlined,
-                                            color: AppColor.red.shade700,
-                                          ),
-                                          Text(
-                                            AppConstants.deleteTask,
-                                            style: AppTypography.normal!
-                                                .copyWith(
-                                                    color:
-                                                        AppColor.red.shade700,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                          )
-                                        ],
-                                      ),
+                                    return DismissibleWidget(
                                       onDismissed: (_) {
                                         todo.removeTodo(todo.todos[t]);
                                       },
-                                      key: Key(
+                                      todoModel: todo.todos[t],
+                                      keyTodo: Key(
                                         t.toString(),
-                                      ),
-                                      child: ListTile(
-                                        selected: todo.done.contains(
-                                          todo.todos[t],
-                                        ),
-                                        onTap: () {
-                                          todo.doneTodo(
-                                            todo.todos[t],
-                                          );
-                                        },
-                                        leading: Text(
-                                          '${t + 1} -',
-                                        ),
-                                        title: Text(
-                                          todo.todos[t].title,
-                                        ),
-                                        subtitle: Text(
-                                          todo.todos[t].dataTime,
-                                        ),
                                       ),
                                     );
                                   });
@@ -271,7 +235,9 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          context.pushNamed('/add_todo');
+          context.pushNamed(
+            AppRoutes.addTodo,
+          );
         },
         label: const Text(
           'Adicionar',
