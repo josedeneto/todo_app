@@ -1,9 +1,9 @@
-import 'package:app_todo/app/utils/colors/app_color.dart';
-import 'package:app_todo/app/utils/style/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../colors/app_color.dart';
 import '../style/app_style.dart';
+import '../style/app_typography.dart';
 
 class AppTheme {
   static ThemeData get theme => ThemeData(
@@ -34,7 +34,6 @@ class AppTheme {
           selectedColor: AppColor.secondary,
           checkmarkColor: AppColor.white,
           backgroundColor: AppColor.background,
-          
         ),
         dialogTheme: DialogTheme(
           titleTextStyle: AppTypography.boldText!.copyWith(

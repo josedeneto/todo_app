@@ -1,9 +1,9 @@
-import 'package:app_todo/app/utils/colors/app_color.dart';
-import 'package:app_todo/app/utils/style/app_typography.dart';
-import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
+import 'package:app_todo/app/core/style/app_typography.dart';
+import 'package:app_todo/app/core/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/colors/app_color.dart';
 import 'controller/settings_controller.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -34,7 +34,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.volume_up_rounded,
                   color: AppColor.secondary,
                 ),
-                const SizedBox(width: 10,),
+                const SizedBox(
+                  width: 10,
+                ),
                 Text(
                   'Notificações',
                   style: AppTypography.boldText,
@@ -46,11 +48,12 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 const Text('Toque de alarme'),
                 Switch.adaptive(
-                  value: context.watch<SettingsController>().onNotify,
-                  onChanged: (value){
-                    context.read<SettingsController>().changeNotification(value);
-                  }
-                )
+                    value: context.watch<SettingsController>().onNotify,
+                    onChanged: (value) {
+                      context
+                          .read<SettingsController>()
+                          .changeNotification(value);
+                    })
               ],
             )
           ],

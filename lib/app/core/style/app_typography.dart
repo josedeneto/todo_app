@@ -1,4 +1,4 @@
-import 'package:app_todo/app/utils/colors/app_color.dart';
+import 'package:app_todo/app/core/colors/app_color.dart';
 import 'package:flutter/material.dart';
 
 class AppTypography {

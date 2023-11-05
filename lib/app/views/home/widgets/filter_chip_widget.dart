@@ -1,6 +1,7 @@
-import 'package:app_todo/app/utils/colors/app_color.dart';
-import 'package:app_todo/app/utils/style/app_typography.dart';
+import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/colors/app_color.dart';
 
 class FilterChipWidget extends StatelessWidget {
   final String title;

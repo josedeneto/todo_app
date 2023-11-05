@@ -1,15 +1,16 @@
+import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/model/todo_model.dart';
-import 'package:app_todo/app/utils/constants/app_constants.dart';
-import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
-import 'package:app_todo/app/utils/style/app_typography.dart';
-import 'package:app_todo/app/utils/widgets/app_bar_widget.dart';
+import 'package:app_todo/app/core/style/app_typography.dart';
+import 'package:app_todo/app/core/widgets/app_bar_widget.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../utils/colors/app_color.dart';
-import '../../utils/helpers/mixins/messages_validate.dart';
-import '../../utils/helpers/mixins/todo_validators.dart';
+import '../../core/colors/app_color.dart';
+import '../../core/strings/app_strings.dart';
+import '../../core/helpers/mixins/messages_validate.dart';
+import '../../core/helpers/mixins/todo_validators.dart';
+
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -52,7 +53,7 @@ class _AddTodoPageState extends State<AddTodoPage>
     return Scaffold(
       appBar: AppBarWidget(
         title: const Text(
-          AppConstants.addTodo,
+          AppStrings.addTodo,
         ),
       ),
       body: Padding(
@@ -75,7 +76,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                     Icons.access_time_rounded,
                     size: 21,
                   ),
-                  hintText: AppConstants.whatYourPlane,
+                  hintText: AppStrings.whatYourPlane,
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -124,7 +125,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      AppConstants.to,
+                      AppStrings.to,
                       style: AppTypography.normal!.copyWith(
                         fontWeight: FontWeight.w400,
                       ),

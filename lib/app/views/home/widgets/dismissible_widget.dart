@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/colors/app_color.dart';
+import '../../../core/strings/app_strings.dart';
 import '../../../model/todo_model.dart';
-import '../../../utils/colors/app_color.dart';
-import '../../../utils/constants/app_constants.dart';
-import '../../../utils/style/app_typography.dart';
+import '../../../core/style/app_typography.dart';
 import 'todo_tile_widget.dart';
 
 class DismissibleWidget extends StatelessWidget {
@@ -29,7 +29,7 @@ class DismissibleWidget extends StatelessWidget {
             color: AppColor.red.shade700,
           ),
           Text(
-            AppConstants.deleteTask,
+            AppStrings.deleteTask,
             style: AppTypography.normal!.copyWith(
               color: AppColor.red.shade700,
               fontWeight: FontWeight.w600,

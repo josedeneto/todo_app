@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../utils/colors/app_color.dart';
-import '../../../utils/style/app_typography.dart';
+import '../../../core/colors/app_color.dart';
+import '../../../core/style/app_typography.dart';
 
 class TitleAndFilter extends StatelessWidget {
   final String title;

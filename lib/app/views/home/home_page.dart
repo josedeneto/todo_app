@@ -1,17 +1,16 @@
-import 'package:app_todo/app/utils/helpers/extensions/navigators_extension.dart';
-import 'package:app_todo/app/utils/helpers/mixins/alert_dialog.dart';
-import 'package:app_todo/app/utils/helpers/mixins/greeting.dart';
-import 'package:app_todo/app/utils/routes/app_routes.dart';
+import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
+import 'package:app_todo/app/core/routes/app_routes.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:app_todo/app/views/home/widgets/todo_tile_widget.dart';
 import 'package:flutter/material.dart';
-
-import 'package:app_todo/app/utils/constants/app_constants.dart';
-import 'package:app_todo/app/utils/colors/app_color.dart';
-import 'package:app_todo/app/utils/style/app_typography.dart';
+import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/colors/app_color.dart';
+import '../../core/strings/app_strings.dart';
+import '../../core/helpers/mixins/alert_dialog.dart';
+import '../../core/helpers/mixins/greeting.dart';
 import 'widgets/dismissible_widget.dart';
 import 'widgets/filter_chip_widget.dart';
 import 'widgets/title_and_filter.dart';
@@ -24,10 +23,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
-  final hourFormati = DateFormat('H:mm').format(DateTime.now());
+  final hourFormat = DateFormat('H:mm').format(DateTime.now());
 
-  late String saudacoes = greeting(hourFormati);
-  final pageController = PageController(initialPage: 0);
+  late String saudacoes = greeting(hourFormat);
+  late PageController pageController;
+  @override
+  void initState() {
+    pageController = PageController(initialPage: 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +54,10 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
             children: [
               Text(
                 saudacoes,
-                style: AppTypography.boldText!
-                    .copyWith(fontSize: 24, fontWeight: FontWeight.w600),
+                style: AppTypography.boldText!.copyWith(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               Text(
                 'José Neto',
@@ -65,8 +77,9 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                     function: (value) {
                       context.read<HomeController>().toggleChip(value);
                       pageController.previousPage(
-                          duration: const Duration(seconds: 1),
-                          curve: Curves.ease);
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.ease,
+                      );
                     },
                     isSelected: context.watch<HomeController>().isSelected,
                   ),
@@ -141,7 +154,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                                         height: 150,
                                       ),
                                       Text(
-                                        AppConstants.messageNoTodo,
+                                        AppStrings.messageNoTodo,
                                         textAlign: TextAlign.center,
                                         style: AppTypography.normal!.copyWith(
                                           color: AppColor.grey,
@@ -151,20 +164,18 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                                   ),
                                 ),
                               )
-                            : Expanded(
-                                child: ListView.separated(
-                                  physics: const BouncingScrollPhysics(
-                                    decelerationRate:
-                                        ScrollDecelerationRate.fast,
-                                  ),
-                                  separatorBuilder: (_, i) => const Divider(),
-                                  itemCount: context
-                                      .read<HomeController>()
-                                      .todos
-                                      .length,
-                                  itemBuilder: (_, t) {
-                                    return Consumer<HomeController>(
-                                        builder: (_, todo, child) {
+                            : Consumer<HomeController>(
+                                builder: (_, todo, child) => Expanded(
+                                  child: ListView.separated(
+                                    physics: const BouncingScrollPhysics(
+                                      decelerationRate:
+                                          ScrollDecelerationRate.fast,
+                                    ),
+                                    separatorBuilder: (_, i) => const SizedBox(
+                                      height: 40,
+                                    ),
+                                    itemCount: todo.todos.length,
+                                    itemBuilder: (_, t) {
                                       return DismissibleWidget(
                                         onDismissed: (_) {
                                           todo.removeTodo(todo.todos[t]);
@@ -174,8 +185,8 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                                           t.toString(),
                                         ),
                                       );
-                                    });
-                                  },
+                                    },
+                                  ),
                                 ),
                               ),
                       ],
@@ -227,16 +238,11 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.pushNamed(
-            AppRoutes.addTodo,
-          );
+          context.pushNamed(AppRoutes.addTodo);
         },
-        label: const Text(
-          'Adicionar',
-        ),
-        icon: const Icon(
+        child: const Icon(
           Icons.add,
         ),
       ),
