@@ -10,5 +10,6 @@ class AppBarWidget extends AppBar {
       super.actions})
       : super(
           automaticallyImplyLeading: implyLeading,
+          centerTitle: true
         );
 }

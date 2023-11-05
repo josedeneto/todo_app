@@ -11,6 +11,8 @@ import '../../core/colors/app_color.dart';
 import '../../core/strings/app_strings.dart';
 import '../../core/helpers/mixins/messages_validate.dart';
 import '../../core/helpers/mixins/todo_validators.dart';
+import 'widget/date_picker_timeline.dart';
+import 'widget/text_description.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -25,7 +27,7 @@ class _AddTodoPageState extends State<AddTodoPage>
   late TextEditingController initHourController;
   late TextEditingController finalHourController;
 
-  String data = '';
+  String date = '';
   final _formKey = GlobalKey<FormState>();
   final hourFormat = DateFormat('H:mm').format(DateTime.now());
 
@@ -61,43 +63,62 @@ class _AddTodoPageState extends State<AddTodoPage>
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              DatePicker(
-                deactivatedColor: Colors.yellow,
-                DateTime.now(),
-                initialSelectedDate: DateTime.now(),
-                dateTextStyle: AppTypography.normal!.copyWith(
-                  color: AppColor.hint,
-                  fontSize: 20,
-                ),
-                width: 80,
-                onDateChange: (selectedDate) {
-                  final newData = DateFormat.yMEd('pt_PT').format(selectedDate);
+              Text.rich(
+                TextSpan(children: [
+                  TextSpan(
+                    text: 'Quando ',
+                    style: AppTypography.normal!
+                        .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+                  ),
+                  TextSpan(
+                    text: 'você\n',
+                    style: AppTypography.normal!.copyWith(fontSize: 18),
+                  ),
+                  TextSpan(
+                    text: 'vai fazer a sua tarefa?',
+                    style: AppTypography.normal!.copyWith(fontSize: 18),
+                  )
+                ]),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const TextDescription(
+                text: 'Escolha a data',
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              DatePickerTimeLine(
+                onDateChanged: (selectDate) {
+                  final newDate = DateFormat.yMEd('pt_PT').format(selectDate);
                   setState(() {
-                    data = newData;
+                    date = newDate;
                   });
                 },
-                selectedTextColor: AppColor.white,
-                monthTextStyle: AppTypography.normal!.copyWith(
-                  color: AppColor.grey,
-                  fontSize: 14,
-                ),
-                selectionColor: AppColor.secondary,
-                dayTextStyle: AppTypography.normal!.copyWith(
-                  color: AppColor.grey,
-                  fontSize: 14,
-                ),
-                height: 100,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const TextDescription(
+                text: 'Sua tarefa',
+              ),
+              const SizedBox(
+                height: 15,
               ),
               TextFormField(
                 controller: todoController,
-                style: const TextStyle(color: AppColor.white),
+                style: const TextStyle(
+                  color: AppColor.white,
+                ),
                 validator: validatorTodo,
                 cursorColor: AppColor.secondary,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(
-                    Icons.access_time_rounded,
+                    Icons.text_fields_rounded,
                     size: 21,
                   ),
                   hintText: AppStrings.whatYourPlane,
@@ -109,7 +130,13 @@ class _AddTodoPageState extends State<AddTodoPage>
                 },
               ),
               const SizedBox(
-                height: 15,
+                height: 30,
+              ),
+              const TextDescription(
+                text: 'Escolha a hora',
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -166,9 +193,10 @@ class _AddTodoPageState extends State<AddTodoPage>
                   final add = context.read<HomeController>();
                   add.addTodo(
                     TodoModel(
-                        title: todoController.text,
-                        dataTime: data,
-                        time: initHourController.text),
+                      title: todoController.text,
+                      dataTime: date,
+                      time: initHourController.text,
+                    ),
                   );
                 }
                 context.pop(
