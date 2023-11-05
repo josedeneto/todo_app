@@ -13,7 +13,6 @@ class TodoTileWidget extends StatelessWidget {
   final List<Color> color = [
     AppColor.todoCircle,
     AppColor.primary,
-  
   ];
   final Random sort = Random();
   TodoTileWidget({
@@ -59,7 +58,9 @@ class TodoTileWidget extends StatelessWidget {
             padding: EdgeInsets.zero,
             width: 15,
             height: 1,
-            decoration: BoxDecoration(color: AppColor.grey.withOpacity(0.4)),
+            decoration: BoxDecoration(
+              color: AppColor.grey.withOpacity(0.4),
+            ),
           )
         ],
       ),
