@@ -3,6 +3,7 @@ import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:app_todo/app/core/widgets/app_bar_widget.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,6 @@ import '../../core/colors/app_color.dart';
 import '../../core/strings/app_strings.dart';
 import '../../core/helpers/mixins/messages_validate.dart';
 import '../../core/helpers/mixins/todo_validators.dart';
-
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -22,18 +22,16 @@ class AddTodoPage extends StatefulWidget {
 class _AddTodoPageState extends State<AddTodoPage>
     with Validator, MessageValidator {
   late TextEditingController todoController;
-  late TextEditingController dateController;
   late TextEditingController initHourController;
   late TextEditingController finalHourController;
-  final data = DateFormat.yMEd('pt_PT').format(DateTime.now());
 
+  String data = '';
   final _formKey = GlobalKey<FormState>();
   final hourFormat = DateFormat('H:mm').format(DateTime.now());
 
   @override
   void initState() {
     todoController = TextEditingController();
-    dateController = TextEditingController();
     initHourController = TextEditingController();
     finalHourController = TextEditingController();
     super.initState();
@@ -42,7 +40,6 @@ class _AddTodoPageState extends State<AddTodoPage>
   @override
   void dispose() {
     todoController.dispose();
-    dateController.dispose();
     initHourController.dispose();
     finalHourController.dispose();
     super.dispose();
@@ -66,6 +63,33 @@ class _AddTodoPageState extends State<AddTodoPage>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              DatePicker(
+                deactivatedColor: Colors.yellow,
+                DateTime.now(),
+                initialSelectedDate: DateTime.now(),
+                dateTextStyle: AppTypography.normal!.copyWith(
+                  color: AppColor.hint,
+                  fontSize: 20,
+                ),
+                width: 80,
+                onDateChange: (selectedDate) {
+                  final newData = DateFormat.yMEd('pt_PT').format(selectedDate);
+                  setState(() {
+                    data = newData;
+                  });
+                },
+                selectedTextColor: AppColor.white,
+                monthTextStyle: AppTypography.normal!.copyWith(
+                  color: AppColor.grey,
+                  fontSize: 14,
+                ),
+                selectionColor: AppColor.secondary,
+                dayTextStyle: AppTypography.normal!.copyWith(
+                  color: AppColor.grey,
+                  fontSize: 14,
+                ),
+                height: 100,
+              ),
               TextFormField(
                 controller: todoController,
                 style: const TextStyle(color: AppColor.white),
@@ -86,23 +110,6 @@ class _AddTodoPageState extends State<AddTodoPage>
               ),
               const SizedBox(
                 height: 15,
-              ),
-              TextFormField(
-                controller: dateController,
-                readOnly: true,
-                onTap: showDateTime,
-                style: const TextStyle(color: AppColor.white),
-                cursorColor: AppColor.secondary,
-                decoration: InputDecoration(
-                  hintText: data,
-                  prefixIcon: const Icon(
-                    Icons.calendar_month_outlined,
-                    size: 25,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -159,10 +166,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                   final add = context.read<HomeController>();
                   add.addTodo(
                     TodoModel(
-                      title: todoController.text,
-                      dataTime: dateController.text,
-                      time: initHourController.text
-                    ),
+                        title: todoController.text,
+                        dataTime: data,
+                        time: initHourController.text),
                   );
                 }
                 context.pop(
@@ -176,29 +182,16 @@ class _AddTodoPageState extends State<AddTodoPage>
     );
   }
 
-  void showDateTime() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime.now(),
-            lastDate: DateTime(2030))
-        .then((value) {
-      setState(() {
-        dateController.text = DateFormat.yMEd('pt_PT').format(value!);
-      });
-    });
-  }
-
   void showTime() {
     showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     ).then((value) {
       setState(() {
-        initHourController.text = DateFormat('HH:mm').format(
-          DateTime(value?.hour ?? 0,
-          value?.minute ?? 0,));
-        
+        initHourController.text = DateFormat('HH:mm').format(DateTime(
+          value?.hour ?? 0,
+          value?.minute ?? 0,
+        ));
       });
     });
   }
