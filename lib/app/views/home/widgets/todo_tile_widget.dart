@@ -67,8 +67,9 @@ class TodoTileWidget extends StatelessWidget {
       title: Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-            color: AppColor.listTileTitle,
-            borderRadius: BorderRadius.circular(12)),
+          color: AppColor.listTileTitle,
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -81,10 +82,12 @@ class TodoTileWidget extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Text(todoModel.dataTime,
-                style: AppTypography.normal!.copyWith(
-                  color: AppColor.grey,
-                )),
+            Text(
+              todoModel.dataTime,
+              style: AppTypography.normal!.copyWith(
+                color: AppColor.grey,
+              ),
+            ),
           ],
         ),
       ),
