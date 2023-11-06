@@ -15,6 +15,6 @@ class AppRoutes {
         home: (context) => const HomePage(),
         addTodo: (context) => const AddTodoPage(),
         settings: (context) => const SettingsPage(),
-        splash:(context) => const SplashScreen()
+        splash: (context) => const SplashScreen()
       };
 }
