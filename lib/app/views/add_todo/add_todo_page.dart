@@ -10,6 +10,7 @@ import '../../core/colors/app_color.dart';
 import '../../core/strings/app_strings.dart';
 import '../../core/helpers/mixins/messages_validate.dart';
 import '../../core/helpers/mixins/todo_validators.dart';
+import '../../core/style/app_style.dart';
 import 'widget/date_picker_timeline.dart';
 import 'widget/question_text.dart';
 import 'widget/text_description.dart';
@@ -68,9 +69,7 @@ class _AddTodoPageState extends State<AddTodoPage>
               mainAxisSize: MainAxisSize.min,
               children: [
                 const QuestionText(),
-                const SizedBox(
-                  height: 20
-                ),
+                const SizedBox(height: 20),
                 TextDescription(
                   text: 'Escolha a data',
                   style: AppTypography.normal!.copyWith(
@@ -120,8 +119,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                     style: AppTypography.normal,
                     validator: validatorTodo,
                     cursorColor: AppColor.secondary,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
+                    decoration: InputDecoration(
+                      errorBorder: AppStyle.errorBorderTodo,
+                      prefixIcon: const Icon(
                         Icons.text_fields_rounded,
                         size: 21,
                       ),
@@ -183,7 +183,6 @@ class _AddTodoPageState extends State<AddTodoPage>
                               decoration: InputDecoration(
                                 hintStyle: AppTypography.boldText,
                                 hintText: hourFormat.toString(),
-                                
                               ),
                             ),
                           ],
@@ -228,28 +227,28 @@ class _AddTodoPageState extends State<AddTodoPage>
                 const SizedBox(
                   height: 25,
                 ),
-                 SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            final valid = _formKey.currentState!.validate();
-                            if (valid) {
-                              final add = context.read<HomeController>();
-                              add.addTodo(
-                                TodoModel(
-                                  title: todoController.text,
-                                  dataTime: date,
-                                  time: initHourController.text,
-                                ),
-                              );
-                            }
-                            context.pop(
-                              const AddTodoPage(),
-                            );
-                          },
-                          child: const Text('Adicionar tarefa'),
-                        ),
-                      )
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      final valid = _formKey.currentState!.validate();
+                      if (valid) {
+                        final add = context.read<HomeController>();
+                        add.addTodo(
+                          TodoModel(
+                            title: todoController.text,
+                            dataTime: date,
+                            time: initHourController.text,
+                          ),
+                        );
+                        context.pop(
+                          const AddTodoPage(),
+                        );
+                      }
+                    },
+                    child: const Text(AppStrings.addTodo),
+                  ),
+                )
               ],
             ),
           ),

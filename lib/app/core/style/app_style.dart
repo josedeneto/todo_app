@@ -12,6 +12,11 @@ class AppStyle {
     ),
   );
 
+  static InputBorder errorBorderTodo = OutlineInputBorder(
+    borderSide: BorderSide.none,
+    borderRadius: BorderRadius.circular(5),
+  );
+
   static InputBorder focusedBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: const BorderSide(
