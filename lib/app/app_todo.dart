@@ -20,7 +20,7 @@ class AppTodo extends StatelessWidget {
         ],
         supportedLocales: const [Locale('pt', 'PT')],
         theme: AppTheme.theme,
-        initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.splash,
         routes: AppRoutes.routes,
       ),
     );

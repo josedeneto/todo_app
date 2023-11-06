@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
               const SizedBox(
                 height: 15,
               ),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   FilterChipWidget(
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                     },
                     isSelected: context.watch<HomeController>().isSelected,
                   ),
-               const SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   FilterChipWidget(
@@ -100,7 +100,6 @@ class _HomePageState extends State<HomePage> with AlertsDialog, Greeting {
                   ),
                 ],
               ),
-              
               Expanded(
                 child: PageView(
                   physics: const NeverScrollableScrollPhysics(),
