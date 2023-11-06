@@ -54,158 +54,219 @@ class _AddTodoPageState extends State<AddTodoPage>
           AppStrings.addTodo,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 20,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text.rich(
-                TextSpan(
-                    style: AppTypography.normal!.copyWith(fontSize: 20),
-                    children: [
-                      TextSpan(
-                        text: 'Quando ',
-                        style: AppTypography.normal!.copyWith(
-                            fontWeight: FontWeight.w700, fontSize: 20),
-                      ),
-                      const TextSpan(
-                        text: 'você\n',
-                      ),
-                      const TextSpan(
-                        text: 'vai fazer a sua tarefa?',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 20,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text.rich(
+                  TextSpan(
+                      style: AppTypography.normal!.copyWith(fontSize: 20),
+                      children: [
+                        TextSpan(
+                          text: 'Quando ',
+                          style: AppTypography.normal!.copyWith(
+                              fontWeight: FontWeight.w700, fontSize: 20),
+                        ),
+                        const TextSpan(
+                          text: 'você\n',
+                        ),
+                        const TextSpan(
+                          text: 'vai fazer a sua tarefa?',
+                        )
+                      ]),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextDescription(
+                  text: 'Escolha a data',
+                  style: AppTypography.normal!.copyWith(
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                DatePickerTimeLine(
+                  onDateChanged: (selectDate) {
+                    final newDate = DateFormat.yMEd('pt_PT').format(selectDate);
+                    setState(() {
+                      date = newDate;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                TextDescription(
+                  text: 'Sua tarefa',
+                  style: AppTypography.normal!.copyWith(
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColor.border.withOpacity(0.8),
+                        blurRadius: 1.0,
+                        spreadRadius: 1.0,
                       )
-                    ]),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const TextDescription(
-                text: 'Escolha a data',
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              DatePickerTimeLine(
-                onDateChanged: (selectDate) {
-                  final newDate = DateFormat.yMEd('pt_PT').format(selectDate);
-                  setState(() {
-                    date = newDate;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const TextDescription(
-                text: 'Sua tarefa',
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                controller: todoController,
-                style: const TextStyle(
-                  color: AppColor.white,
+                    ],
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ),
+                    color: AppColor.background,
+                  ),
+                  child: TextFormField(
+                    controller: todoController,
+                    style: AppTypography.normal,
+                    validator: validatorTodo,
+                    cursorColor: AppColor.secondary,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.text_fields_rounded,
+                        size: 21,
+                      ),
+                      hintText: AppStrings.whatYourPlane,
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        todoController.text = value;
+                      });
+                    },
+                  ),
                 ),
-                validator: validatorTodo,
-                cursorColor: AppColor.secondary,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.text_fields_rounded,
-                    size: 21,
-                  ),
-                  hintText: AppStrings.whatYourPlane,
+                const SizedBox(
+                  height: 30,
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    todoController.text = value;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const TextDescription(
-                text: 'Escolha a hora',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: initHourController,
-                      readOnly: true,
-                      onTap: showTime,
-                      style: const TextStyle(color: AppColor.white),
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.access_time_rounded,
-                          size: 21,
-                        ),
-                        hintText: hourFormat.toString(),
-                      ),
-                    ),
+                TextDescription(
+                  text: 'Escolha a hora',
+                  style: AppTypography.normal!.copyWith(
+                    fontSize: 14,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      AppStrings.to,
-                      style: AppTypography.normal!.copyWith(
-                        fontWeight: FontWeight.w400,
-                      ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColor.border.withOpacity(0.8),
+                        blurRadius: 1.0,
+                        spreadRadius: 1.0,
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(
+                      12,
                     ),
+                    color: AppColor.background,
                   ),
-                  Expanded(
-                    child: TextFormField(
-                      style: const TextStyle(color: AppColor.white),
-                      decoration: const InputDecoration(
-                        hintText: '10:00',
-                        prefixIcon: Icon(
-                          Icons.access_time_rounded,
-                          size: 21,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextDescription(
+                              text: 'Começo',
+                              style: AppTypography.normal!.copyWith(
+                                fontSize: 12,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: initHourController,
+                              readOnly: true,
+                              onTap: showTime,
+                              style: AppTypography.boldText,
+                              decoration: InputDecoration(
+                                hintStyle: AppTypography.boldText,
+                                hintText: hourFormat.toString(),
+                              ),
+                            ),
+                          ],
                         ),
-                        hintStyle: TextStyle(),
                       ),
-                    ),
-                  )
-                ],
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 20,
+                          left: 20,
+                          right: 20,
+                        ),
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: AppColor.white,
+                          size: 16,
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextDescription(
+                              text: 'Fim',
+                              style: AppTypography.normal!.copyWith(
+                                fontSize: 12,
+                              ),
+                            ),
+                            TextFormField(
+                              style: AppTypography.boldText,
+                              decoration: InputDecoration(
+                                hintText: '10:00',
+                                hintStyle: AppTypography.boldText,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 25,),
+              todoController.text.isEmpty? const SizedBox.shrink(): SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {
+                      final valid = _formKey.currentState!.validate();
+                      if (valid) {
+                        final add = context.read<HomeController>();
+                        add.addTodo(
+                          TodoModel(
+                            title: todoController.text,
+                            dataTime: date,
+                            time: initHourController.text,
+                          ),
+                        );
+                      }
+                      context.pop(
+                        const AddTodoPage(),
+                      );
+                    },
+                    child: const Text('Adicionar tarefa'),
+                  ),
               )
-            ],
+              ],
+            ),
           ),
         ),
       ),
-      floatingActionButton: todoController.text.isEmpty
-          ? null
-          : FloatingActionButton(
-              onPressed: () {
-                final valid = _formKey.currentState!.validate();
-                if (valid) {
-                  final add = context.read<HomeController>();
-                  add.addTodo(
-                    TodoModel(
-                      title: todoController.text,
-                      dataTime: date,
-                      time: initHourController.text,
-                    ),
-                  );
-                }
-                context.pop(
-                  const AddTodoPage(),
-                );
-              },
-              child: const Icon(
-                Icons.check,
-              ),
-            ),
     );
   }
 

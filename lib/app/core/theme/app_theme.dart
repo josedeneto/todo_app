@@ -72,7 +72,7 @@ class AppTheme {
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: AppColor.textField,
+          fillColor: AppColor.background,
           errorBorder: AppStyle.errorBorder,
           isDense: true,
           border: AppStyle.defaultBorder,
