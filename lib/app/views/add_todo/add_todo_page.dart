@@ -183,6 +183,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                               decoration: InputDecoration(
                                 hintStyle: AppTypography.boldText,
                                 hintText: hourFormat.toString(),
+                                
                               ),
                             ),
                           ],
@@ -192,7 +193,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                         padding: EdgeInsets.only(
                           top: 20,
                           left: 20,
-                          right: 20,
+                          right: 25,
                         ),
                         child: Icon(
                           Icons.arrow_forward_ios_rounded,

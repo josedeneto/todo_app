@@ -76,7 +76,7 @@ class AppTheme {
           errorBorder: AppStyle.errorBorder,
           isDense: true,
           border: AppStyle.defaultBorder,
-          focusedBorder: AppStyle.focusedBorder,
+          focusedBorder: AppStyle.defaultBorder,
         ),
         appBarTheme: AppBarTheme(
           foregroundColor: AppColor.white,
