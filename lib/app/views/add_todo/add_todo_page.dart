@@ -2,6 +2,8 @@ import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:app_todo/app/core/widgets/app_bar_widget.dart';
+import 'package:app_todo/app/views/add_todo/widget/time_todo.dart';
+import 'package:app_todo/app/views/add_todo/widget/todo_container.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -99,21 +101,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.border.withOpacity(0.8),
-                        blurRadius: 1.0,
-                        spreadRadius: 1.0,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(
-                      12,
-                    ),
-                    color: AppColor.background,
-                  ),
+                TodoContainer(
                   child: TextFormField(
                     controller: todoController,
                     style: AppTypography.normal,
@@ -146,47 +134,22 @@ class _AddTodoPageState extends State<AddTodoPage>
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.border.withOpacity(0.8),
-                        blurRadius: 1.0,
-                        spreadRadius: 1.0,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(
-                      12,
-                    ),
-                    color: AppColor.background,
-                  ),
+                TodoContainer(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextDescription(
-                              text: 'Começo',
-                              style: AppTypography.normal!.copyWith(
-                                fontSize: 12,
-                              ),
-                            ),
-                            TextFormField(
-                              controller: initHourController,
-                              readOnly: true,
-                              onTap: showTime,
-                              style: AppTypography.boldText,
-                              decoration: InputDecoration(
-                                hintStyle: AppTypography.boldText,
-                                hintText: hourFormat.toString(),
-                              ),
-                            ),
-                          ],
+                      TimeTodo(
+                        inputTime: TextFormField(
+                          controller: initHourController,
+                          readOnly: true,
+                          onTap: showTime,
+                          style: AppTypography.boldText,
+                          decoration: InputDecoration(
+                            hintStyle: AppTypography.boldText,
+                            hintText: hourFormat.toString(),
+                          ),
                         ),
+                        text: 'Início',
                       ),
                       const Padding(
                         padding: EdgeInsets.only(
@@ -200,32 +163,21 @@ class _AddTodoPageState extends State<AddTodoPage>
                           size: 16,
                         ),
                       ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextDescription(
-                              text: 'Fim',
-                              style: AppTypography.normal!.copyWith(
-                                fontSize: 12,
-                              ),
-                            ),
-                            TextFormField(
-                              style: AppTypography.boldText,
-                              decoration: InputDecoration(
-                                hintText: '10:00',
-                                hintStyle: AppTypography.boldText,
-                              ),
-                            ),
-                          ],
+                      TimeTodo(
+                        inputTime: TextFormField(
+                          style: AppTypography.boldText,
+                          decoration: InputDecoration(
+                            hintText: '10:00',
+                            hintStyle: AppTypography.boldText,
+                          ),
                         ),
+                        text: 'Fim',
                       )
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 30,
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -246,7 +198,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                         );
                       }
                     },
-                    child: const Text(AppStrings.addTodo),
+                    child: const Text(
+                      AppStrings.addTodo,
+                    ),
                   ),
                 )
               ],
