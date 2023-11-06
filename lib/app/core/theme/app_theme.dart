@@ -100,9 +100,15 @@ class AppTheme {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(14),
-              backgroundColor: AppColor.secondary,
-              foregroundColor: AppColor.white),
+            padding: const EdgeInsets.all(14),
+            elevation: 1,
+            textStyle: AppTypography.normal,
+             shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(11)
+             ),
+            backgroundColor: AppColor.secondary,
+            foregroundColor: AppColor.white,
+          ),
         ),
         dividerTheme: const DividerThemeData(
           thickness: 1,

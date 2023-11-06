@@ -228,9 +228,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                 const SizedBox(
                   height: 25,
                 ),
-                todoController.text.isEmpty
-                    ? const SizedBox.shrink()
-                    : SizedBox(
+                 SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
