@@ -11,6 +11,7 @@ import '../../core/strings/app_strings.dart';
 import '../../core/helpers/mixins/messages_validate.dart';
 import '../../core/helpers/mixins/todo_validators.dart';
 import 'widget/date_picker_timeline.dart';
+import 'widget/question_text.dart';
 import 'widget/text_description.dart';
 
 class AddTodoPage extends StatefulWidget {
@@ -66,25 +67,9 @@ class _AddTodoPageState extends State<AddTodoPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text.rich(
-                  TextSpan(
-                      style: AppTypography.normal!.copyWith(fontSize: 20),
-                      children: [
-                        TextSpan(
-                          text: 'Quando ',
-                          style: AppTypography.normal!.copyWith(
-                              fontWeight: FontWeight.w700, fontSize: 20),
-                        ),
-                        const TextSpan(
-                          text: 'você\n',
-                        ),
-                        const TextSpan(
-                          text: 'vai fazer a sua tarefa?',
-                        )
-                      ]),
-                ),
+                const QuestionText(),
                 const SizedBox(
-                  height: 20,
+                  height: 20
                 ),
                 TextDescription(
                   text: 'Escolha a data',
@@ -239,29 +224,33 @@ class _AddTodoPageState extends State<AddTodoPage>
                     ],
                   ),
                 ),
-                const SizedBox(height: 25,),
-              todoController.text.isEmpty? const SizedBox.shrink(): SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      final valid = _formKey.currentState!.validate();
-                      if (valid) {
-                        final add = context.read<HomeController>();
-                        add.addTodo(
-                          TodoModel(
-                            title: todoController.text,
-                            dataTime: date,
-                            time: initHourController.text,
-                          ),
-                        );
-                      }
-                      context.pop(
-                        const AddTodoPage(),
-                      );
-                    },
-                    child: const Text('Adicionar tarefa'),
-                  ),
-              )
+                const SizedBox(
+                  height: 25,
+                ),
+                todoController.text.isEmpty
+                    ? const SizedBox.shrink()
+                    : SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            final valid = _formKey.currentState!.validate();
+                            if (valid) {
+                              final add = context.read<HomeController>();
+                              add.addTodo(
+                                TodoModel(
+                                  title: todoController.text,
+                                  dataTime: date,
+                                  time: initHourController.text,
+                                ),
+                              );
+                            }
+                            context.pop(
+                              const AddTodoPage(),
+                            );
+                          },
+                          child: const Text('Adicionar tarefa'),
+                        ),
+                      )
               ],
             ),
           ),
