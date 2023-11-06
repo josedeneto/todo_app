@@ -3,7 +3,6 @@ import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:app_todo/app/core/widgets/app_bar_widget.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -67,21 +66,21 @@ class _AddTodoPageState extends State<AddTodoPage>
             mainAxisSize: MainAxisSize.min,
             children: [
               Text.rich(
-                TextSpan(children: [
-                  TextSpan(
-                    text: 'Quando ',
-                    style: AppTypography.normal!
-                        .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
-                  ),
-                  TextSpan(
-                    text: 'você\n',
-                    style: AppTypography.normal!.copyWith(fontSize: 18),
-                  ),
-                  TextSpan(
-                    text: 'vai fazer a sua tarefa?',
-                    style: AppTypography.normal!.copyWith(fontSize: 18),
-                  )
-                ]),
+                TextSpan(
+                    style: AppTypography.normal!.copyWith(fontSize: 20),
+                    children: [
+                      TextSpan(
+                        text: 'Quando ',
+                        style: AppTypography.normal!.copyWith(
+                            fontWeight: FontWeight.w700, fontSize: 20),
+                      ),
+                      const TextSpan(
+                        text: 'você\n',
+                      ),
+                      const TextSpan(
+                        text: 'vai fazer a sua tarefa?',
+                      )
+                    ]),
               ),
               const SizedBox(
                 height: 20,
