@@ -1,4 +1,6 @@
 import 'package:app_todo/app/core/colors/app_color.dart';
+import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
+import 'package:app_todo/app/core/routes/app_routes.dart';
 import 'package:app_todo/app/core/strings/app_strings.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 40,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
@@ -42,7 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
                       fontSize: 18,
                     ),
                   ),
-                 
                   TextSpan(
                     text: ' \n${AppStrings.messageToUser}',
                     style: AppTypography.normal!.copyWith(
@@ -59,7 +62,9 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 50,
               width: 160,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(AppRoutes.home);
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
