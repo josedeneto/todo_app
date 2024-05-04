@@ -28,4 +28,28 @@ mixin AlertsDialog<T extends StatefulWidget> on State<T> {
       },
     );
   }
+
+  Future<bool> showAlertConfirmDeleteUniqueTodo() async {
+    bool shouldDismiss = await showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Eliminar tarefa'),
+        content: const Text('Tem certeza que quer eliminar esta tarefa?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              return Navigator.of(context).pop(true);
+            },
+            child: const Text('Excluir'),
+          ),
+        ],
+      ),
+    );
+    // Retorna true ou false com base na escolha do usuário
+    return shouldDismiss ?? false;
+  }
 }

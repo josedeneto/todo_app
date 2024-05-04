@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-mixin Greeting<T extends StatefulWidget> on State<T>{
+mixin Greeting<T extends StatefulWidget> on State<T> {
   String greeting(String formatedTime) {
     final hora = int.parse(formatedTime.split(':')[0]);
     switch (hora) {
@@ -22,12 +22,12 @@ mixin Greeting<T extends StatefulWidget> on State<T>{
       case 17:
         return 'Boa tarde!';
       case 18:
-    case 19:
-    case 20:
-    case 21:
-    case 22:
-    case 23:
-      return 'Boa noite!';
+      case 19:
+      case 20:
+      case 21:
+      case 22:
+      case 23:
+        return 'Boa noite!';
       default:
         return 'Olá';
     }

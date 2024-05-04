@@ -8,18 +8,22 @@ import 'todo_tile_widget.dart';
 
 class DismissibleWidget extends StatelessWidget {
   final TodoModel todoModel;
-  final Function(DismissDirection) onDismissed;
-  final Key keyTodo;
+  final Function() onDismissed;
+  final Future<bool>Function() confirmDismiss;
   const DismissibleWidget({
     required this.todoModel,
     required this.onDismissed,
-    required this.keyTodo,
+    required this.confirmDismiss,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
+      confirmDismiss:(DismissDirection direction) async{
+        return confirmDismiss();
+      },
+      key:Key(todoModel.id.toString()),
       direction: DismissDirection.horizontal,
       background: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -37,10 +41,12 @@ class DismissibleWidget extends StatelessWidget {
           )
         ],
       ),
-      onDismissed: onDismissed,
-      key: Key(
-        keyTodo.toString(),
-      ),
+      
+      
+      onDismissed:(_){
+        onDismissed();
+      },
+      
       child: TodoTileWidget(
         todoModel: todoModel,
       ),

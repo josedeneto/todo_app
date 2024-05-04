@@ -24,8 +24,8 @@ class FilterChipWidget extends StatelessWidget {
       label: Text(
         '$title($todos)',
         style: AppTypography.boldText!.copyWith(
-          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w300,
-          fontSize: 16,
+          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w300,
+          fontSize: 15,
         ),
       ),
       onSelected: function,

@@ -19,7 +19,7 @@ class DatePickerTimeLine extends StatelessWidget {
       initialSelectedDate: DateTime.now(),
       dateTextStyle: AppTypography.normal!.copyWith(
         color: AppColor.hint,
-        fontSize: 20,
+        fontSize: 16,
       ),
       width: 75,
       onDateChange: onDateChanged,
@@ -33,7 +33,7 @@ class DatePickerTimeLine extends StatelessWidget {
         color: AppColor.grey,
         fontSize: 12,
       ),
-      height: 100,
+      height: 84,
     );
   }
 }

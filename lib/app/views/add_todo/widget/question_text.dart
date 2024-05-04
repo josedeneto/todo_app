@@ -20,14 +20,20 @@ class QuestionText extends StatelessWidget {
             text: AppStrings.when,
             style: AppTypography.normal!.copyWith(
               fontWeight: FontWeight.w700,
-              fontSize: 20,
+              fontSize: 16,
             ),
           ),
-          const TextSpan(
+          TextSpan(
             text: ' ${AppStrings.you}\n',
+            style: AppTypography.normal!.copyWith(
+              fontSize: 16,
+            ),
           ),
-          const TextSpan(
+          TextSpan(
             text: AppStrings.doTheTask,
+            style: AppTypography.normal!.copyWith(
+              fontSize: 16,
+            ),
           )
         ],
       ),

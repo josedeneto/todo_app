@@ -1,11 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class TodoModel {
-  String title;
-  String dataTime;
-  String time;
+  final String id;
+ final String title;
+ final String dataTime;
+ final String time;
+ final String createdAt;
   TodoModel({
+   required this.id,
     required this.title,
     required this.dataTime,
     required this.time,
+    required this.createdAt
   });
 }

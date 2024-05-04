@@ -20,6 +20,7 @@ class TitleAndFilter extends StatelessWidget {
           title,
           style: AppTypography.boldText!.copyWith(
             fontWeight: FontWeight.w400,
+            fontSize: 15
           ),
         ),
         PopupMenuButton(

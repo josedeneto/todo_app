@@ -19,5 +19,7 @@ class AppColor {
   static const dayOverlayColor = Color.fromARGB(28, 130, 87, 229);
   static const todoCircle = Color.fromARGB(188, 59, 255, 157);
   static const listTileTitle = Color.fromARGB(30, 114, 114, 114);
+  static const textNull =  Color.fromARGB(255, 68, 68, 76);
+  static const trackSwitch = Color.fromARGB(88, 153, 109, 255);
 
 }

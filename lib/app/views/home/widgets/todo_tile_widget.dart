@@ -10,6 +10,7 @@ import '../controller/home_controller.dart';
 
 class TodoTileWidget extends StatelessWidget {
   final TodoModel todoModel;
+  final VoidCallback? onTap;
   final List<Color> color = [
     AppColor.todoCircle,
     AppColor.primary,
@@ -17,6 +18,7 @@ class TodoTileWidget extends StatelessWidget {
   final Random sort = Random();
   TodoTileWidget({
     required this.todoModel,
+    this.onTap,
     super.key,
   });
 
@@ -30,7 +32,7 @@ class TodoTileWidget extends StatelessWidget {
           Text(
             todoModel.time,
             style: AppTypography.normal!.copyWith(
-              fontSize: 26,
+              fontSize: 20,
             ),
           ),
           const SizedBox(
@@ -65,7 +67,7 @@ class TodoTileWidget extends StatelessWidget {
         ],
       ),
       title: Container(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
         decoration: BoxDecoration(
           color: AppColor.listTileTitle,
           borderRadius: BorderRadius.circular(12),
@@ -75,18 +77,48 @@ class TodoTileWidget extends StatelessWidget {
           children: [
             Text(
               todoModel.title,
-              style: AppTypography.boldText!.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
+              style: AppTypography.boldText!
+                  .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
             ),
             const SizedBox(
               height: 10,
             ),
-            Text(
-              todoModel.dataTime,
-              style: AppTypography.normal!.copyWith(
-                color: AppColor.grey,
-              ),
+            Row(
+              children: [
+                const Icon(
+                  Icons.calendar_month_outlined,
+                  color: AppColor.hint,
+                  size: 16,
+                ),
+                const SizedBox(
+                  width: 3,
+                ),
+                Text(
+                  todoModel.dataTime,
+                  style: AppTypography.normal!
+                      .copyWith(fontSize: 13, color: AppColor.hint),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Icon(Icons.access_time_outlined,
+                    color: AppColor.hint, size: 16),
+                const SizedBox(
+                  width: 3,
+                ),
+                Text(
+                  todoModel.createdAt,
+                  style: AppTypography.normal!.copyWith(
+                    fontSize: 13,
+                    color: AppColor.hint,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

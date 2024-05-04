@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:uuid/uuid.dart';
+
 import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
@@ -12,10 +16,10 @@ import '../../core/colors/app_color.dart';
 import '../../core/strings/app_strings.dart';
 import '../../core/helpers/mixins/messages_validate.dart';
 import '../../core/helpers/mixins/todo_validators.dart';
-import '../../core/style/app_style.dart';
 import 'widget/date_picker_timeline.dart';
 import 'widget/question_text.dart';
 import 'widget/text_description.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -30,15 +34,42 @@ class _AddTodoPageState extends State<AddTodoPage>
   late TextEditingController initHourController;
   late TextEditingController finalHourController;
 
-  String date = '';
+  String date = DateFormat.yMEd('pt_PT').format(DateTime.now());
+
   final _formKey = GlobalKey<FormState>();
   final hourFormat = DateFormat('H:mm').format(DateTime.now());
+  final FocusNode _focusNode = FocusNode();
+  bool isActiveBorder = false;
+  bool isTodoEmpty = false;
+  String erroText = '';
+ 
+ String generateUniqueId() {
+  const uuid =  Uuid();
+  return uuid.v4();
+}
+
+
+  
+  
 
   @override
   void initState() {
     todoController = TextEditingController();
     initHourController = TextEditingController();
     finalHourController = TextEditingController();
+
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        setState(() {
+          isActiveBorder = !isActiveBorder;
+        });
+      } else {
+        setState(() {
+          isActiveBorder = !isActiveBorder;
+        });
+      }
+    });
+
     super.initState();
   }
 
@@ -47,11 +78,34 @@ class _AddTodoPageState extends State<AddTodoPage>
     todoController.dispose();
     initHourController.dispose();
     finalHourController.dispose();
+    _focusNode.dispose();
     super.dispose();
+  }
+
+  void showTime(TextEditingController controller) {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) {
+      if (value != null) {
+        final selectedTime = DateTime(0, 0, 0, value.hour, value.minute);
+        setState(() {
+          controller.text = DateFormat('HH:mm').format(selectedTime);
+        
+        });
+      } else {
+        setState(() {
+          controller.text = hourFormat;
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final id = generateUniqueId();
+    log(id.toString());
+
     return Scaffold(
       appBar: AppBarWidget(
         title: const Text(
@@ -59,6 +113,7 @@ class _AddTodoPageState extends State<AddTodoPage>
         ),
       ),
       body: SingleChildScrollView(
+        reverse: true,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
@@ -73,9 +128,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                 const QuestionText(),
                 const SizedBox(height: 20),
                 TextDescription(
-                  text: 'Escolha a data',
+                  text: 'Selecione a data',
                   style: AppTypography.normal!.copyWith(
-                    fontSize: 14,
+                    fontSize: 15,
                   ),
                 ),
                 const SizedBox(
@@ -95,21 +150,32 @@ class _AddTodoPageState extends State<AddTodoPage>
                 TextDescription(
                   text: 'Sua tarefa',
                   style: AppTypography.normal!.copyWith(
-                    fontSize: 14,
+                    fontSize: 15,
                   ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 TodoContainer(
+                  isEmptyTodo: isTodoEmpty,
+                  isActiveborder: isActiveBorder,
                   child: TextFormField(
+                    focusNode: _focusNode,
                     controller: todoController,
                     style: AppTypography.normal,
-                    validator: validatorTodo,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        setState(() {
+                          isTodoEmpty = true;
+                          erroText = 'Opa! Precisa informar uma tarefa';
+                        });
+                        return '';
+                      }
+                      return null;
+                    },
                     cursorColor: AppColor.secondary,
-                    decoration: InputDecoration(
-                      errorBorder: AppStyle.errorBorderTodo,
-                      prefixIcon: const Icon(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
                         Icons.text_fields_rounded,
                         size: 21,
                       ),
@@ -118,17 +184,24 @@ class _AddTodoPageState extends State<AddTodoPage>
                     onChanged: (value) {
                       setState(() {
                         todoController.text = value;
+                        erroText = '';
+                        isTodoEmpty = false;
                       });
                     },
                   ),
                 ),
+                Text(
+                  erroText,
+                  style: AppTypography.normal!
+                      .copyWith(color: AppColor.red, fontSize: 13),
+                ),
                 const SizedBox(
-                  height: 30,
+                  height: 5,
                 ),
                 TextDescription(
-                  text: 'Escolha a hora',
+                  text: 'Selecione a hora',
                   style: AppTypography.normal!.copyWith(
-                    fontSize: 14,
+                    fontSize: 15,
                   ),
                 ),
                 const SizedBox(
@@ -141,8 +214,14 @@ class _AddTodoPageState extends State<AddTodoPage>
                       TimeTodo(
                         inputTime: TextFormField(
                           controller: initHourController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              initHourController.text = hourFormat;
+                            }
+                            return null;
+                          },
                           readOnly: true,
-                          onTap: showTime,
+                          onTap: () => showTime(initHourController),
                           style: AppTypography.boldText,
                           decoration: InputDecoration(
                             hintStyle: AppTypography.boldText,
@@ -165,6 +244,15 @@ class _AddTodoPageState extends State<AddTodoPage>
                       ),
                       TimeTodo(
                         inputTime: TextFormField(
+                          controller: finalHourController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              finalHourController.text = '10:00';
+                            }
+                            return null;
+                          },
+                          onTap: () => showTime(finalHourController),
+                          readOnly: true,
                           style: AppTypography.boldText,
                           decoration: InputDecoration(
                             hintText: '10:00',
@@ -188,11 +276,15 @@ class _AddTodoPageState extends State<AddTodoPage>
                         final add = context.read<HomeController>();
                         add.addTodo(
                           TodoModel(
+                            id:id ,
                             title: todoController.text,
                             dataTime: date,
                             time: initHourController.text,
+                            createdAt:
+                                timeago.format(DateTime.now(), locale: 'pt_pt',),
                           ),
                         );
+                        messageSucessTodo();
                         context.pop(
                           const AddTodoPage(),
                         );
@@ -209,19 +301,5 @@ class _AddTodoPageState extends State<AddTodoPage>
         ),
       ),
     );
-  }
-
-  void showTime() {
-    showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    ).then((value) {
-      setState(() {
-        initHourController.text = DateFormat('HH:mm').format(DateTime(
-          value?.hour ?? 0,
-          value?.minute ?? 0,
-        ));
-      });
-    });
   }
 }

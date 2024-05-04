@@ -5,13 +5,18 @@ class HomeController extends ChangeNotifier {
   List<TodoModel> done = [];
   List<TodoModel> todos = [];
   bool isSelected = true;
+  bool isDarkMode = true;
 
   void addTodo(TodoModel todoModel) {
     todos.add(todoModel);
     notifyListeners();
   }
+  void removeAtt(TodoModel todoModel){
+   todos.removeWhere((item) => item.id == todoModel.id);
+    notifyListeners();
+  }
 
-   doneTodo(TodoModel todoModel) {
+  void doneTodo(TodoModel todoModel) {
     if (done.contains(todoModel)) {
       done.remove(todoModel);
     } else {
@@ -26,14 +31,15 @@ class HomeController extends ChangeNotifier {
   }
 
   void removeTodo(TodoModel todoModel) {
-    if (todos.contains(todoModel) || done.contains(todoModel)) {
+    if (todos.contains(todoModel)) {
       todos.remove(todoModel);
+    } else if (done.contains(todoModel)) {
       done.remove(todoModel);
     }
     notifyListeners();
   }
 
-  void removeAllTodoDone(){
+  void removeAllTodoDone() {
     done.clear();
     notifyListeners();
   }
@@ -44,6 +50,11 @@ class HomeController extends ChangeNotifier {
     } else {
       isSelected = value;
     }
+    notifyListeners();
+  }
+
+  void activeMode(){
+    isDarkMode = !isDarkMode;
     notifyListeners();
   }
 }
