@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  backgroundColor: Color.fromARGB(255, 78, 55, 133),
+                  backgroundColor:const Color.fromARGB(255, 78, 55, 133),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

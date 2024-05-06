@@ -1,6 +1,5 @@
 import 'package:app_todo/app/views/add_todo/add_todo_page.dart';
 import 'package:app_todo/app/views/home/home_page.dart';
-import 'package:app_todo/app/views/settings/settings.page.dart';
 import 'package:flutter/material.dart';
 
 import '../../views/splash/splash_screen.dart';
@@ -14,7 +13,6 @@ class AppRoutes {
   static Map<String, WidgetBuilder> get routes => {
         home: (context) => const HomePage(),
         addTodo: (context) => const AddTodoPage(),
-        settings: (context) => const SettingsPage(),
         splash: (context) => const SplashScreen()
       };
 }
