@@ -1,7 +1,7 @@
-import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../../core/colors/app_color.dart';
+import '../controller/home_controller.dart';
 
 class FilterChipWidget extends StatelessWidget {
   final String title;
@@ -23,10 +23,17 @@ class FilterChipWidget extends StatelessWidget {
       selected: isSelected,
       label: Text(
         '$title($todos)',
-        style: AppTypography.boldText!.copyWith(
-          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w300,
-          fontSize: 15,
-        ),
+        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w300,
+              fontSize: 15,
+              color: isSelected
+                  ? AppColor.white
+                  : (!isSelected
+                      ? (context.watch<HomeController>().isDarkMode
+                          ? AppColor.white
+                          : AppColor.background)
+                      : AppColor.white),
+            ),
       ),
       onSelected: function,
       side: !isSelected

@@ -8,12 +8,14 @@ import 'todo_tile_widget.dart';
 
 class DismissibleWidget extends StatelessWidget {
   final TodoModel todoModel;
+  final bool isDoneTodo;
   final Function() onDismissed;
   final Future<bool>Function() confirmDismiss;
   const DismissibleWidget({
     required this.todoModel,
     required this.onDismissed,
     required this.confirmDismiss,
+    required this.isDoneTodo,
     super.key,
   });
 
@@ -48,6 +50,7 @@ class DismissibleWidget extends StatelessWidget {
       },
       
       child: TodoTileWidget(
+        isDoneTodo: isDoneTodo,
         todoModel: todoModel,
       ),
     );

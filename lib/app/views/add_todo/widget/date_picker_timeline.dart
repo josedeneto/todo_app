@@ -30,7 +30,7 @@ class DatePickerTimeLine extends StatelessWidget {
             fontSize: 13,
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
-      selectionColor: AppColor.secondary,
+      selectionColor: Theme.of(context).colorScheme.secondary,
       dayTextStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
             fontSize: 12,

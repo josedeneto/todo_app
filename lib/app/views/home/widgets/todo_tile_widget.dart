@@ -11,6 +11,7 @@ import '../controller/home_controller.dart';
 class TodoTileWidget extends StatelessWidget {
   final TodoModel todoModel;
   final VoidCallback? onTap;
+  final bool isDoneTodo;
   final List<Color> color = [
     AppColor.todoCircle,
     AppColor.primary,
@@ -18,6 +19,7 @@ class TodoTileWidget extends StatelessWidget {
   final Random sort = Random();
   TodoTileWidget({
     required this.todoModel,
+    required this.isDoneTodo,
     this.onTap,
     super.key,
   });
@@ -31,9 +33,11 @@ class TodoTileWidget extends StatelessWidget {
         children: [
           Text(
             todoModel.time,
-            style: AppTypography.normal!.copyWith(
-              fontSize: 20,
-            ),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontSize: 20,
+                color: context.watch<HomeController>().isDarkMode
+                    ? AppColor.white
+                    : AppColor.background),
           ),
           const SizedBox(
             width: 20,
@@ -75,10 +79,44 @@ class TodoTileWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              todoModel.title,
-              style: AppTypography.boldText!
-                  .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  todoModel.title,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: context.watch<HomeController>().isDarkMode
+                          ? null
+                          : AppColor.background),
+                ),
+                context.watch<HomeController>().done.contains(todoModel)? Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(43, 153, 109, 255),
+                            border:
+                                const Border.fromBorderSide(BorderSide.none),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.5),
+                            child: Text(
+                              'Concluído',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontSize: 11,
+                                    color: AppColor.secondary,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink()
+              ],
             ),
             const SizedBox(
               height: 10,
@@ -95,8 +133,10 @@ class TodoTileWidget extends StatelessWidget {
                 ),
                 Text(
                   todoModel.dataTime,
-                  style: AppTypography.normal!
-                      .copyWith(fontSize: 13, color: AppColor.hint),
+                  style: AppTypography.normal!.copyWith(
+                    fontSize: 13,
+                    color: AppColor.hint,
+                  ),
                 )
               ],
             ),
@@ -123,7 +163,6 @@ class TodoTileWidget extends StatelessWidget {
           ],
         ),
       ),
-      selected: context.watch<HomeController>().done.contains(todoModel),
       onTap: () {
         context.read<HomeController>().doneTodo(
               todoModel,

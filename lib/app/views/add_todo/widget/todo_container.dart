@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../core/colors/app_color.dart';
@@ -6,7 +7,8 @@ class TodoContainer extends StatelessWidget {
   final Widget child;
   final bool? isActiveborder;
   final bool? isEmptyTodo;
-  const TodoContainer({Key? key, required this.child, this.isActiveborder, this.isEmptyTodo})
+  final bool? isDarkmode;
+  const TodoContainer({Key? key, required this.child, this.isActiveborder, this.isEmptyTodo, this.isDarkmode=true})
       : super(key: key);
 
   @override
@@ -20,14 +22,15 @@ class TodoContainer extends StatelessWidget {
           width: 0.50,
         ),
         boxShadow: [
-          BoxShadow(
+        isDarkmode!?  BoxShadow(
             color: AppColor.border.withOpacity(0.8),
             blurRadius: 1.0,
             spreadRadius: 1.0,
-          )
+          ):const BoxShadow( 
+            spreadRadius: 0.2)
         ],
         borderRadius: BorderRadius.circular(12),
-        color: AppColor.background,
+        color: Theme.of(context).colorScheme.background,
       ),
       child: child,
     );

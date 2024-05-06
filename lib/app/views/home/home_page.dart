@@ -5,6 +5,8 @@ import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:app_todo/app/views/home/widgets/todo_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +15,7 @@ import '../../core/strings/app_strings.dart';
 import '../../core/helpers/mixins/alert_dialog.dart';
 import '../../core/helpers/mixins/greeting.dart';
 import 'widgets/dismissible_widget.dart';
+import 'widgets/drawer_widget.dart';
 import 'widgets/filter_chip_widget.dart';
 import 'widgets/title_and_filter.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
@@ -31,11 +34,23 @@ class _HomePageState extends State<HomePage>
   late String saudacoes = greeting(hourFormat);
   late PageController pageController;
   final _advancedDrawerController = AdvancedDrawerController();
-  bool dark = false;
+  void updateStatusBarColor() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness: context.read<HomeController>().isDarkMode
+            ? Brightness.light
+            : Brightness.dark,
+        statusBarBrightness: context.read<HomeController>().isDarkMode
+            ? Brightness.light
+            : Brightness.light,
+        statusBarColor: context.read<HomeController>().isDarkMode
+            ? AppColor.background
+            : AppColor.white));
+  }
 
   @override
   void initState() {
     pageController = PageController(initialPage: 0);
+    updateStatusBarColor();
     super.initState();
   }
 
@@ -52,64 +67,14 @@ class _HomePageState extends State<HomePage>
       openRatio: 0.70,
       openScale: 0.70,
       backdrop: Container(
-        decoration: const BoxDecoration(color: AppColor.background),
+        decoration:
+            BoxDecoration(color: Theme.of(context).colorScheme.background),
       ),
       childDecoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       controller: _advancedDrawerController,
-      drawer: SafeArea(
-        child: Container(
-          color: AppColor.background,
-          child: Center(
-            child: ListTileTheme(
-              iconColor: AppColor.white,
-              textColor: AppColor.white,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    onTap: () {},
-                    leading: const Icon(Icons.dark_mode_outlined),
-                    title: const Text('Modo Dark'),
-                    trailing: Transform.scale(
-                      scale: 0.80,
-                      child: Switch.adaptive(
-                          activeColor: AppColor.primary,
-                          activeTrackColor: AppColor.trackSwitch,
-                          inactiveThumbColor: AppColor.primary,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          trackOutlineColor: const MaterialStatePropertyAll(
-                            Colors.transparent,
-                          ),
-                          value: context.watch<HomeController>().isDarkMode,
-                          onChanged: (dark) =>
-                              context.read<HomeController>().activeMode()),
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: const Icon(Icons.help_outline_rounded),
-                    title: const Text('Ajuda'),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: const Icon(Icons.privacy_tip_outlined),
-                    title: const Text('Termos & Condições'),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: const Icon(Icons.logout_outlined),
-                    title: const Text('Sair'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+      drawer: const DrawerWidget(),
       child: Scaffold(
         body: SafeArea(
           child: Padding(
@@ -126,27 +91,30 @@ class _HomePageState extends State<HomePage>
                   children: [
                     Text(
                       saudacoes,
-                      style: AppTypography.boldText!.copyWith(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                              ),
                     ),
                     IconButton(
                       onPressed: () {
                         _advancedDrawerController.showDrawer();
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.sort,
-                        color: AppColor.white,
+                        color: context.watch<HomeController>().isDarkMode
+                            ? AppColor.white
+                            : AppColor.background,
                       ),
                     )
                   ],
                 ),
                 Text(
                   'José Neto',
-                  style: AppTypography.normal!.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
                 ),
                 const SizedBox(
                   height: 15,
@@ -236,9 +204,12 @@ class _HomePageState extends State<HomePage>
                                         Text(
                                           AppStrings.messageNoTodo,
                                           textAlign: TextAlign.center,
-                                          style: AppTypography.normal!.copyWith(
-                                              color: AppColor.grey,
-                                              fontSize: 14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  color: AppColor.grey,
+                                                  fontSize: 14),
                                         ),
                                       ],
                                     ),
@@ -257,16 +228,30 @@ class _HomePageState extends State<HomePage>
                                       ),
                                       itemCount: todo.todos.length,
                                       itemBuilder: (_, t) {
-                                        return DismissibleWidget(
-                                          key: Key(todo.todos[t].id),
-                                          confirmDismiss: () async {
-                                            return showAlertConfirmDeleteUniqueTodo();
-                                          },
-                                          onDismissed: () {
-                                            todo.removeAtt(todo.todos[t]);
-                                            messageDeleteTodo();
-                                          },
-                                          todoModel: todo.todos[t],
+                                        return AnimationConfiguration
+                                            .staggeredList(
+                                          delay:
+                                              const Duration(milliseconds: 500),
+                                          duration:
+                                              const Duration(milliseconds: 500),
+                                          position: t,
+                                          child: SlideAnimation(
+                                            child: SlideAnimation(
+                                              child: DismissibleWidget(
+                                                isDoneTodo: todo.done
+                                                    .contains(todo.todos[t]),
+                                                key: Key(todo.todos[t].id),
+                                                confirmDismiss: () async {
+                                                  return showAlertConfirmDeleteUniqueTodo();
+                                                },
+                                                onDismissed: () {
+                                                  todo.removeAtt(todo.todos[t]);
+                                                  messageDeleteTodo();
+                                                },
+                                                todoModel: todo.todos[t],
+                                              ),
+                                            ),
+                                          ),
                                         );
                                       },
                                     ),
@@ -275,8 +260,17 @@ class _HomePageState extends State<HomePage>
                         ],
                       ),
                       context.watch<HomeController>().done.isEmpty
-                          ? const Center(
-                              child: Text('Nenhuma tarefa'),
+                          ? Center(
+                              child: Text(
+                                'Nenhuma tarefa',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      color: AppColor.grey,
+                                      fontSize: 14,
+                                    ),
+                              ),
                             )
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,6 +303,8 @@ class _HomePageState extends State<HomePage>
                                         itemCount: done.done.length,
                                         itemBuilder: (_, d) {
                                           return TodoTileWidget(
+                                            isDoneTodo: done.done
+                                                .contains(done.done[d]),
                                             todoModel: done.done[d],
                                           );
                                         },

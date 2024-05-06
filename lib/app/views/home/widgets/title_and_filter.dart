@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/colors/app_color.dart';
-import '../../../core/style/app_typography.dart';
+
 
 class TitleAndFilter extends StatelessWidget {
   final String title;
@@ -18,9 +18,9 @@ class TitleAndFilter extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTypography.boldText!.copyWith(
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontWeight: FontWeight.w400,
-            fontSize: 15
+          
           ),
         ),
         PopupMenuButton(

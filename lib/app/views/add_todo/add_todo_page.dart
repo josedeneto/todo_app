@@ -108,188 +108,195 @@ class _AddTodoPageState extends State<AddTodoPage>
             horizontal: 20,
             vertical: 20,
           ),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const QuestionText(),
-                const SizedBox(height: 20),
-                TextDescription(
-                  text: 'Selecione a data',
-                  style: AppTypography.normal!.copyWith(
-                    fontSize: 15,
+          child: Consumer<HomeController>(
+            builder: (context,homeController,child){
+              return Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const QuestionText(),
+                  const SizedBox(height: 20),
+                  TextDescription(
+                    text: 'Selecione a data',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 15),
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                DatePickerTimeLine(
-                  onDateChanged: (selectDate) {
-                    final newDate = DateFormat.yMEd('pt_PT').format(selectDate);
-                    setState(() {
-                      date = newDate;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextDescription(
-                  text: 'Sua tarefa',
-                  style: AppTypography.normal!.copyWith(
-                    fontSize: 15,
+                  const SizedBox(
+                    height: 15,
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TodoContainer(
-                  isEmptyTodo: isTodoEmpty,
-                  isActiveborder: isActiveBorder,
-                  child: TextFormField(
-                    focusNode: _focusNode,
-                    controller: todoController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        setState(() {
-                          isTodoEmpty = true;
-                          erroText = 'Opa! Precisa informar uma tarefa';
-                        });
-                        return '';
-                      }
-                      return null;
-                    },
-                    cursorColor: Theme.of(context).colorScheme.secondary,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.text_fields_rounded,
-                        size: 21,
-                      ),
-                      hintText: AppStrings.whatYourPlane,
-                    ),
-                    onChanged: (value) {
+                  DatePickerTimeLine(
+                    onDateChanged: (selectDate) {
+                      final newDate = DateFormat.yMEd('pt_PT').format(selectDate);
                       setState(() {
-                        todoController.text = value;
-                        erroText = '';
-                        isTodoEmpty = false;
+                        date = newDate;
                       });
                     },
                   ),
-                ),
-                Text(
-                  erroText,
-                  style: AppTypography.normal!.copyWith(
-                      color: Theme.of(context).colorScheme.onError,
-                      fontSize: 13),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextDescription(
-                  text: 'Selecione a hora',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 15),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TodoContainer(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TimeTodo(
-                        inputTime: TextFormField(
-                          controller: initHourController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              initHourController.text = hourFormat;
-                            }
-                            return null;
-                          },
-                          readOnly: true,
-                          onTap: () => showTime(initHourController),
-                          style: AppTypography.boldText,
-                          decoration: InputDecoration(
-                            hintStyle: Theme.of(context).textTheme.headlineMedium,
-                            hintText: hourFormat.toString(),
-                          ),
-                        ),
-                        text: 'Início',
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          top: 20,
-                          left: 20,
-                          right: 25,
-                        ),
-                        child: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: AppColor.white,
-                          size: 16,
-                        ),
-                      ),
-                      TimeTodo(
-                        inputTime: TextFormField(
-                          controller: finalHourController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              finalHourController.text = '10:00';
-                            }
-                            return null;
-                          },
-                          onTap: () => showTime(finalHourController),
-                          readOnly: true,
-                          style: AppTypography.boldText,
-                          decoration: InputDecoration(
-                            hintText: '10:00',
-                            hintStyle: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                        ),
-                        text: 'Fim',
-                      )
-                    ],
+                  const SizedBox(
+                    height: 30,
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      final id = generateUniqueId();
-                      final valid = _formKey.currentState!.validate();
-                      if (valid) {
-                        final add = context.read<HomeController>();
-                        add.addTodo(
-                          TodoModel(
-                            id: id,
-                            title: todoController.text,
-                            dataTime: date,
-                            time: initHourController.text,
-                            createdAt: timeago.format(
-                              DateTime.now(),
-                              locale: 'pt_pt',
-                            ),
-                          ),
-                        );
-                        messageSucessTodo();
-                        context.pop(
-                          const AddTodoPage(),
-                        );
-                      }
-                    },
-                    child: const Text(
-                      AppStrings.addTodo,
+                  TextDescription(
+                    text: 'Sua tarefa',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 15),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TodoContainer(
+                    isDarkmode: homeController.isDarkMode,
+                    isEmptyTodo: isTodoEmpty,
+                    isActiveborder: isActiveBorder,
+                    child: TextFormField(
+                      focusNode: _focusNode,
+                      controller: todoController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          setState(() {
+                            isTodoEmpty = true;
+                            erroText = 'Opa! Precisa informar uma tarefa';
+                          });
+                          return '';
+                        }
+                        return null;
+                      },
+                      cursorColor: Theme.of(context).colorScheme.secondary,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.text_fields_rounded,
+                          size: 21,
+                        ),
+                        hintText: AppStrings.whatYourPlane,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          todoController.text = value;
+                          erroText = '';
+                          isTodoEmpty = false;
+                        });
+                      },
                     ),
                   ),
-                )
-              ],
-            ),
+                  Text(
+                    erroText,
+                    style: AppTypography.normal!.copyWith(
+                        color: Theme.of(context).colorScheme.onError,
+                        fontSize: 13),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextDescription(
+                    text: 'Selecione a hora',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 15),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TodoContainer(
+                    isDarkmode: homeController.isDarkMode,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TimeTodo(
+                          inputTime: TextFormField(
+                            controller: initHourController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                initHourController.text = hourFormat;
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            onTap: () => showTime(initHourController),
+                            style: AppTypography.boldText,
+                            decoration: InputDecoration(
+                              hintStyle: Theme.of(context).textTheme.headlineMedium,
+                              hintText: hourFormat.toString(),
+                            ),
+                          ),
+                          text: 'Início',
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            top: 20,
+                            left: 20,
+                            right: 25,
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: AppColor.white,
+                            size: 16,
+                          ),
+                        ),
+                        TimeTodo(
+                          inputTime: TextFormField(
+                            controller: finalHourController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                finalHourController.text = '10:00';
+                              }
+                              return null;
+                            },
+                            onTap: () => showTime(finalHourController),
+                            readOnly: true,
+                            style: AppTypography.boldText,
+                            decoration: InputDecoration(
+                              hintText: '10:00',
+                              hintStyle: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          text: 'Fim',
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final id = generateUniqueId();
+                        final valid = _formKey.currentState!.validate();
+                        if (valid) {
+                          final add = context.read<HomeController>();
+                          add.addTodo(
+                            TodoModel(
+                              id: id,
+                              title: todoController.text,
+                              dataTime: date,
+                              time: initHourController.text,
+                              createdAt: timeago.format(
+                                DateTime.now(),
+                                locale: 'pt_pt',
+                              ),
+                            ),
+                          );
+                          messageSucessTodo();
+                          context.pop(
+                            const AddTodoPage(),
+                          );
+                        }
+                      },
+                      child: const Text(
+                        AppStrings.addTodo,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );}
           ),
         ),
       ),
