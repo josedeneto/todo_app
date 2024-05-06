@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'text_description.dart';
+
 
 class TimeTodo extends StatelessWidget {
   final Widget inputTime;
@@ -12,14 +12,15 @@ class TimeTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextDescription(
-            text: text,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 12),
+          Text(
+            text,
+            style: theme.bodySmall!.copyWith(fontSize: 12),
           ),
           inputTime
         ],

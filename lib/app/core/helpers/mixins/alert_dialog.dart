@@ -49,7 +49,6 @@ mixin AlertsDialog<T extends StatefulWidget> on State<T> {
         ],
       ),
     );
-    // Retorna true ou false com base na escolha do usuário
     return shouldDismiss ?? false;
   }
 }

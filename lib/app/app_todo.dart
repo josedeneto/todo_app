@@ -11,9 +11,11 @@ class AppTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+ 
     return AppBinding(
       child: Builder(
         builder: (context) {
+            final isDarkMode = context.watch<HomeController>().isDarkMode;
           final materialApp = MaterialApp(
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
@@ -22,8 +24,7 @@ class AppTodo extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate
             ],
             supportedLocales: const [Locale('pt', 'PT')],
-            //darkTheme: ThemeData(colorScheme: darktheme),
-            theme: context.watch<HomeController>().isDarkMode
+            theme: isDarkMode
                 ? AppThemes.dark(context)
                 : AppThemes.light(context),
             initialRoute: AppRoutes.splash,

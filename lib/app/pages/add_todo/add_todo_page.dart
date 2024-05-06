@@ -15,7 +15,6 @@ import '../../core/helpers/mixins/messages_validate.dart';
 import '../../core/helpers/mixins/todo_validators.dart';
 import 'widget/date_picker_timeline.dart';
 import 'widget/question_text.dart';
-import 'widget/text_description.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class AddTodoPage extends StatefulWidget {
@@ -33,7 +32,7 @@ class _AddTodoPageState extends State<AddTodoPage>
 
   String date = DateFormat.yMEd('pt_PT').format(DateTime.now());
 
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();  
   final hourFormat = DateFormat('H:mm').format(DateTime.now());
   final FocusNode _focusNode = FocusNode();
   bool isActiveBorder = false;
@@ -58,7 +57,7 @@ class _AddTodoPageState extends State<AddTodoPage>
         });
       } else {
         setState(() {
-          isActiveBorder = !isActiveBorder;
+          isActiveBorder = !isActiveBorder; //Mudar aqui amanhã
         });
       }
     });
@@ -95,6 +94,8 @@ class _AddTodoPageState extends State<AddTodoPage>
 
   @override
   Widget build(BuildContext context) {
+     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -118,10 +119,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                 children: [
                   const QuestionText(),
                   const SizedBox(height: 20),
-                  TextDescription(
-                    text: 'Selecione a data',
-                    style: Theme.of(context)
-                        .textTheme
+                  Text(
+                    'Selecione a data',
+                    style:theme.textTheme
                         .bodySmall!
                         .copyWith(fontSize: 15),
                   ),
@@ -139,10 +139,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                   const SizedBox(
                     height: 30,
                   ),
-                  TextDescription(
-                    text: 'Sua tarefa',
-                    style: Theme.of(context)
-                        .textTheme
+                  Text(
+                    'Sua tarefa',
+                    style:theme.textTheme
                         .bodySmall!
                         .copyWith(fontSize: 15),
                   ),
@@ -150,9 +149,9 @@ class _AddTodoPageState extends State<AddTodoPage>
                     height: 15,
                   ),
                   TodoContainer(
-                    isDarkmode: homeController.isDarkMode,
+                    isDarkMode: homeController.isDarkMode,
                     isEmptyTodo: isTodoEmpty,
-                    isActiveborder: isActiveBorder,
+                    isActiveBorder: isActiveBorder,
                     child: TextFormField(
                       focusNode: _focusNode,
                       controller: todoController,
@@ -166,7 +165,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                         }
                         return null;
                       },
-                      cursorColor: Theme.of(context).colorScheme.secondary,
+                      cursorColor: colorScheme.secondary,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.text_fields_rounded,
@@ -186,16 +185,15 @@ class _AddTodoPageState extends State<AddTodoPage>
                   Text(
                     erroText,
                     style: AppTypography.normal!.copyWith(
-                        color: Theme.of(context).colorScheme.onError,
+                        color:colorScheme.onError,
                         fontSize: 13),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  TextDescription(
-                    text: 'Selecione a hora',
-                    style: Theme.of(context)
-                        .textTheme
+                  Text(
+                     'Selecione a hora',
+                    style:theme.textTheme
                         .bodySmall!
                         .copyWith(fontSize: 15),
                   ),
@@ -203,7 +201,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                     height: 20,
                   ),
                   TodoContainer(
-                    isDarkmode: homeController.isDarkMode,
+                    isDarkMode: homeController.isDarkMode,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -220,7 +218,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                             onTap: () => showTime(initHourController),
                             style: AppTypography.boldText,
                             decoration: InputDecoration(
-                              hintStyle: Theme.of(context).textTheme.headlineMedium,
+                              hintStyle: theme.textTheme.headlineMedium,
                               hintText: hourFormat.toString(),
                             ),
                           ),
@@ -252,7 +250,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                             style: AppTypography.boldText,
                             decoration: InputDecoration(
                               hintText: '10:00',
-                              hintStyle: Theme.of(context).textTheme.headlineMedium,
+                              hintStyle: theme.textTheme.headlineMedium,
                             ),
                           ),
                           text: 'Fim',

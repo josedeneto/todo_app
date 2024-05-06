@@ -6,16 +6,12 @@ import 'package:app_todo/app/pages/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
   Widget build(BuildContext context) {
+    final isDarkMode = context.watch<HomeController>().isDarkMode;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -29,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               'Olá!',
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                fontSize: 37,color: context.watch<HomeController>().isDarkMode?AppColor.white:AppColor.background
+                fontSize: 37,color:isDarkMode?AppColor.white:AppColor.background
               ),
             ),
             const SizedBox(

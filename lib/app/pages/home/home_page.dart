@@ -4,7 +4,6 @@ import 'package:app_todo/app/core/routes/app_routes.dart';
 import 'package:app_todo/app/pages/home/controller/home_controller.dart';
 import 'package:app_todo/app/pages/home/widgets/todo_tile_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -62,13 +61,16 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    final todos = context.read<HomeController>();
+    final homeController = context.read<HomeController>();
+    final isDarkMode = context.watch<HomeController>().isDarkMode;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return AdvancedDrawer(
       openRatio: 0.70,
       openScale: 0.70,
       backdrop: Container(
         decoration:
-            BoxDecoration(color: Theme.of(context).colorScheme.background),
+            BoxDecoration(color:colorScheme.background,),
       ),
       childDecoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -92,7 +94,7 @@ class _HomePageState extends State<HomePage>
                     Text(
                       saudacoes,
                       style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
+                         theme.textTheme.headlineMedium!.copyWith(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -103,7 +105,7 @@ class _HomePageState extends State<HomePage>
                       },
                       icon: Icon(
                         Icons.sort,
-                        color: context.watch<HomeController>().isDarkMode
+                        color: isDarkMode
                             ? AppColor.white
                             : AppColor.background,
                       ),
@@ -112,7 +114,7 @@ class _HomePageState extends State<HomePage>
                 ),
                 Text(
                   'José Neto',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  style: theme.textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w400,
                       ),
                 ),
@@ -124,30 +126,30 @@ class _HomePageState extends State<HomePage>
                   children: [
                     FilterChipWidget(
                       title: 'Todas',
-                      todos: context.read<HomeController>().todos.length,
+                      todos: homeController.todos.length,
                       function: (value) {
-                        context.read<HomeController>().toggleChip(value);
+                        homeController.toggleChip(value);
                         pageController.previousPage(
                           duration: const Duration(seconds: 1),
                           curve: Curves.ease,
                         );
                       },
-                      isSelected: context.watch<HomeController>().isSelected,
+                      isSelected:homeController.isSelected,
                     ),
                     const SizedBox(
                       width: 15,
                     ),
                     FilterChipWidget(
                       title: 'Feitas',
-                      todos: context.read<HomeController>().done.length,
+                      todos: homeController.done.length,
                       function: (value) {
-                        context.read<HomeController>().toggleChip(value);
+                        homeController.toggleChip(value);
                         pageController.nextPage(
                           duration: const Duration(seconds: 1),
                           curve: Curves.ease,
                         );
                       },
-                      isSelected: !context.watch<HomeController>().isSelected,
+                      isSelected: !homeController.isSelected,
                     ),
                   ],
                 ),
@@ -168,19 +170,19 @@ class _HomePageState extends State<HomePage>
                               PopupMenuItem(
                                 value: 1,
                                 height: 25,
-                                onTap: todos.todos.isEmpty
+                                onTap: homeController.todos.isEmpty
                                     ? null
                                     : () {
                                         showAlert(() {
-                                          todos.removeAllTodo();
+                                          homeController.removeAllTodo();
                                           messageDeleteAllTodo();
                                           Navigator.pop(context);
                                         });
                                       },
                                 child: Text(
                                   'Eliminar todas',
-                                  style: AppTypography.normal!.copyWith(
-                                      color: todos.todos.isEmpty
+                                  style: theme.textTheme.bodySmall!.copyWith(
+                                      color: homeController.todos.isEmpty
                                           ? AppColor.textNull
                                           : null),
                                 ),
@@ -190,7 +192,7 @@ class _HomePageState extends State<HomePage>
                           const SizedBox(
                             height: 20,
                           ),
-                          context.watch<HomeController>().todos.isEmpty
+                          homeController.todos.isEmpty
                               ? Expanded(
                                   child: Center(
                                     child: Column(
@@ -204,7 +206,7 @@ class _HomePageState extends State<HomePage>
                                         Text(
                                           AppStrings.messageNoTodo,
                                           textAlign: TextAlign.center,
-                                          style: Theme.of(context)
+                                          style: theme
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
@@ -259,11 +261,11 @@ class _HomePageState extends State<HomePage>
                                 ),
                         ],
                       ),
-                      context.watch<HomeController>().done.isEmpty
+                      homeController.done.isEmpty
                           ? Center(
                               child: Text(
                                 'Nenhuma tarefa',
-                                style: Theme.of(context)
+                                style: theme
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
@@ -288,9 +290,7 @@ class _HomePageState extends State<HomePage>
                                         ),
                                         onTap: () {
                                           showAlert(() {
-                                            context
-                                                .read<HomeController>()
-                                                .removeAllTodoDone();
+                                            homeController.removeAllTodoDone();
                                             Navigator.pop(context);
                                           });
                                         },
