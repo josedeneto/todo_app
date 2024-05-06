@@ -1,3 +1,4 @@
+import 'package:app_todo/app/core/theme/app_theme%20copy.dart';
 import 'package:app_todo/app/core/theme/other.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class AppTodo extends StatelessWidget {
           ],
           supportedLocales: const [Locale('pt', 'PT')],
           //darkTheme: ThemeData(colorScheme: darktheme),
-          theme:context.watch<HomeController>().isDarkMode? AppTheme.theme:AppTheme.themeLight,
+          theme:context.watch<HomeController>().isDarkMode? AppThemes.themeDarkOne(context):AppTheme.themeLight,
           initialRoute: AppRoutes.splash,
           routes: AppRoutes.routes,);
         

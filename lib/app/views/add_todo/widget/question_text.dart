@@ -18,22 +18,18 @@ class QuestionText extends StatelessWidget {
         children: [
           TextSpan(
             text: AppStrings.when,
-            style: AppTypography.normal!.copyWith(
-              fontWeight: FontWeight.w700,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+               fontWeight: FontWeight.w700,
               fontSize: 16,
             ),
           ),
           TextSpan(
             text: ' ${AppStrings.you}\n',
-            style: AppTypography.normal!.copyWith(
-              fontSize: 16,
-            ),
+            style:  Theme.of(context).textTheme.bodySmall,
           ),
           TextSpan(
             text: AppStrings.doTheTask,
-            style: AppTypography.normal!.copyWith(
-              fontSize: 16,
-            ),
+            style: Theme.of(context).textTheme.bodySmall,
           )
         ],
       ),

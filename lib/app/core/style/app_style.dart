@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../colors/app_color.dart';
 
 class AppStyle {
+  static InputBorder defaultBorderNone = const OutlineInputBorder(borderSide: BorderSide.none);
   static InputBorder errorBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: const BorderSide(

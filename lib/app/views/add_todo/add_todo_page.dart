@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:uuid/uuid.dart';
 
 import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/model/todo_model.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
-import 'package:app_todo/app/core/widgets/app_bar_widget.dart';
 import 'package:app_todo/app/views/add_todo/widget/time_todo.dart';
 import 'package:app_todo/app/views/add_todo/widget/todo_container.dart';
 import 'package:app_todo/app/views/home/controller/home_controller.dart';
@@ -42,15 +39,11 @@ class _AddTodoPageState extends State<AddTodoPage>
   bool isActiveBorder = false;
   bool isTodoEmpty = false;
   String erroText = '';
- 
- String generateUniqueId() {
-  const uuid =  Uuid();
-  return uuid.v4();
-}
 
-
-  
-  
+  String generateUniqueId() {
+    const uuid = Uuid();
+    return uuid.v4();
+  }
 
   @override
   void initState() {
@@ -91,7 +84,6 @@ class _AddTodoPageState extends State<AddTodoPage>
         final selectedTime = DateTime(0, 0, 0, value.hour, value.minute);
         setState(() {
           controller.text = DateFormat('HH:mm').format(selectedTime);
-        
         });
       } else {
         setState(() {
@@ -103,11 +95,8 @@ class _AddTodoPageState extends State<AddTodoPage>
 
   @override
   Widget build(BuildContext context) {
-    final id = generateUniqueId();
-    log(id.toString());
-
     return Scaffold(
-      appBar: AppBarWidget(
+      appBar: AppBar(
         title: const Text(
           AppStrings.addTodo,
         ),
@@ -162,7 +151,6 @@ class _AddTodoPageState extends State<AddTodoPage>
                   child: TextFormField(
                     focusNode: _focusNode,
                     controller: todoController,
-                    style: AppTypography.normal,
                     validator: (value) {
                       if (value!.isEmpty) {
                         setState(() {
@@ -173,7 +161,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                       }
                       return null;
                     },
-                    cursorColor: AppColor.secondary,
+                    cursorColor: Theme.of(context).colorScheme.secondary,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(
                         Icons.text_fields_rounded,
@@ -192,17 +180,19 @@ class _AddTodoPageState extends State<AddTodoPage>
                 ),
                 Text(
                   erroText,
-                  style: AppTypography.normal!
-                      .copyWith(color: AppColor.red, fontSize: 13),
+                  style: AppTypography.normal!.copyWith(
+                      color: Theme.of(context).colorScheme.onError,
+                      fontSize: 13),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 TextDescription(
                   text: 'Selecione a hora',
-                  style: AppTypography.normal!.copyWith(
-                    fontSize: 15,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 15),
                 ),
                 const SizedBox(
                   height: 20,
@@ -224,7 +214,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                           onTap: () => showTime(initHourController),
                           style: AppTypography.boldText,
                           decoration: InputDecoration(
-                            hintStyle: AppTypography.boldText,
+                            hintStyle: Theme.of(context).textTheme.headlineMedium,
                             hintText: hourFormat.toString(),
                           ),
                         ),
@@ -256,7 +246,7 @@ class _AddTodoPageState extends State<AddTodoPage>
                           style: AppTypography.boldText,
                           decoration: InputDecoration(
                             hintText: '10:00',
-                            hintStyle: AppTypography.boldText,
+                            hintStyle: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ),
                         text: 'Fim',
@@ -271,17 +261,20 @@ class _AddTodoPageState extends State<AddTodoPage>
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      final id = generateUniqueId();
                       final valid = _formKey.currentState!.validate();
                       if (valid) {
                         final add = context.read<HomeController>();
                         add.addTodo(
                           TodoModel(
-                            id:id ,
+                            id: id,
                             title: todoController.text,
                             dataTime: date,
                             time: initHourController.text,
-                            createdAt:
-                                timeago.format(DateTime.now(), locale: 'pt_pt',),
+                            createdAt: timeago.format(
+                              DateTime.now(),
+                              locale: 'pt_pt',
+                            ),
                           ),
                         );
                         messageSucessTodo();

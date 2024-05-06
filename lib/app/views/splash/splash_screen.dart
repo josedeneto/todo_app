@@ -27,9 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Text(
               'Olá!',
-              style: AppTypography.boldText!.copyWith(
-                fontSize: 37,
-                fontWeight: FontWeight.w600,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontSize: 37,color:  Theme.of(context).colorScheme.tertiary
               ),
             ),
             const SizedBox(
@@ -41,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   TextSpan(
                     text: AppStrings.wellcome,
                     style: AppTypography.normal!.copyWith(
-                      fontWeight: FontWeight.w600,
+                     
                       color: AppColor.secondary,
                       fontSize: 18,
                     ),
@@ -66,18 +65,17 @@ class _SplashScreenState extends State<SplashScreen> {
                   context.pushNamed(AppRoutes.home);
                 },
                 style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: Color.fromARGB(255, 78, 55, 133),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  side: const BorderSide(
-                    color: AppColor.primary,
-                    style: BorderStyle.solid,
-                  ),
+                  side: BorderSide.none,
                 ),
                 child: Text(
                   'Começar',
-                  style: AppTypography.normal!.copyWith(
-                    fontWeight: FontWeight.w700,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontWeight: FontWeight.w600
                   ),
                 ),
               ),

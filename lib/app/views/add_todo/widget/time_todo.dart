@@ -1,7 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import '../../../core/style/app_typography.dart';
 import 'text_description.dart';
 
 class TimeTodo extends StatelessWidget {
@@ -22,9 +19,7 @@ class TimeTodo extends StatelessWidget {
         children: [
           TextDescription(
             text: text,
-            style: AppTypography.normal!.copyWith(
-              fontSize: 12,
-            ),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 12),
           ),
           inputTime
         ],

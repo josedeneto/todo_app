@@ -209,7 +209,7 @@ class AppTheme {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             backgroundColor: AppColor.secondary,
-            foregroundColor: AppColor.white,
+            foregroundColor: AppColor.background,
           ),
         ),
         dividerTheme: const DividerThemeData(
