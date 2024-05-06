@@ -1,8 +1,8 @@
-import 'package:app_todo/app/views/add_todo/add_todo_page.dart';
-import 'package:app_todo/app/views/home/home_page.dart';
+import 'package:app_todo/app/pages/add_todo/add_todo_page.dart';
+import 'package:app_todo/app/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../views/splash/splash_screen.dart';
+import '../../pages/splash/splash_screen.dart';
 
 class AppRoutes {
   static const String home = '/home';

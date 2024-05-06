@@ -1,8 +1,8 @@
 import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/core/helpers/mixins/messages_validate.dart';
 import 'package:app_todo/app/core/routes/app_routes.dart';
-import 'package:app_todo/app/views/home/controller/home_controller.dart';
-import 'package:app_todo/app/views/home/widgets/todo_tile_widget.dart';
+import 'package:app_todo/app/pages/home/controller/home_controller.dart';
+import 'package:app_todo/app/pages/home/widgets/todo_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:app_todo/app/core/style/app_typography.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';

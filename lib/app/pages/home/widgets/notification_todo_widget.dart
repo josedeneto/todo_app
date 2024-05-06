@@ -1,4 +1,4 @@
-import 'package:app_todo/app/views/add_todo/widget/todo_container.dart';
+import 'package:app_todo/app/pages/add_todo/widget/todo_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/colors/app_color.dart';

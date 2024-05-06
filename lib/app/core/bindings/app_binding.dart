@@ -1,9 +1,9 @@
-import 'package:app_todo/app/views/home/controller/home_controller.dart';
+import 'package:app_todo/app/pages/home/controller/home_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../views/add_todo/controller/add_todo_controller.dart';
+import '../../pages/add_todo/controller/add_todo_controller.dart';
 
 class AppBinding extends StatelessWidget {
   final Widget child;

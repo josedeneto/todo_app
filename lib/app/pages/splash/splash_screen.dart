@@ -2,7 +2,7 @@ import 'package:app_todo/app/core/colors/app_color.dart';
 import 'package:app_todo/app/core/helpers/extensions/navigators_extension.dart';
 import 'package:app_todo/app/core/routes/app_routes.dart';
 import 'package:app_todo/app/core/strings/app_strings.dart';
-import 'package:app_todo/app/views/home/controller/home_controller.dart';
+import 'package:app_todo/app/pages/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
