@@ -24,6 +24,7 @@ class AppTodo extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate
             ],
             supportedLocales: const [Locale('pt', 'PT')],
+            
             theme: isDarkMode
                 ? AppThemes.dark(context)
                 : AppThemes.light(context),

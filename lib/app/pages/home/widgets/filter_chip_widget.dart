@@ -18,22 +18,22 @@ class FilterChipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = context.watch<HomeController>().isDarkMode;
     return FilterChip(
       showCheckmark: false,
       selected: isSelected,
       label: Text(
         '$title($todos)',
-        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w300,
-              fontSize: 15,
-              color: isSelected
-                  ? AppColor.white
-                  : (!isSelected
-                      ? (context.watch<HomeController>().isDarkMode
-                          ? AppColor.white
-                          : AppColor.background)
-                      : AppColor.white),
-            ),
+        style: theme.textTheme.bodySmall!.copyWith(
+          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w300,
+          fontSize: 15,
+          color: isSelected
+              ? AppColor.white
+              : (!isSelected
+                  ? (isDarkMode ? AppColor.white : AppColor.background)
+                  : AppColor.white),
+        ),
       ),
       onSelected: function,
       side: !isSelected

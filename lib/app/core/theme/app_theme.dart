@@ -6,19 +6,20 @@ import 'package:flutter/services.dart';
 import '../colors/app_color.dart';
 
 class AppThemes {
+  //lightTheme
   static ThemeData light(BuildContext context) => ThemeData(
-    
         //#F7F2FA
         useMaterial3: true,
         timePickerTheme: const TimePickerThemeData(
-            helpTextStyle: TextStyle(color: AppColor.white),
-            backgroundColor: Color(0xff65558F),
-            dialBackgroundColor: AppColor.hourColor,
-            hourMinuteColor: AppColor.hourColor,
-            hourMinuteTextColor: AppColor.white,
-            entryModeIconColor: AppColor.white,
-            dialTextColor: AppColor.white,
-            dialHandColor: Color.fromARGB(255, 94, 61, 172)),
+          helpTextStyle: TextStyle(color: AppColor.white),
+          backgroundColor: Color(0xff65558F),
+          dialBackgroundColor: AppColor.hourColor,
+          hourMinuteColor: AppColor.hourColor,
+          hourMinuteTextColor: AppColor.white,
+          entryModeIconColor: AppColor.white,
+          dialTextColor: AppColor.white,
+          dialHandColor: Color.fromARGB(255, 94, 61, 172),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: AppColor.hint,
@@ -61,22 +62,24 @@ class AppThemes {
           ),
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            elevation: 0, backgroundColor: Color(0xff65558F)),
-        listTileTheme: ListTileThemeData(
-          contentPadding: const EdgeInsets.only(left: 2, right: 6),
-          leadingAndTrailingTextStyle: AppTypography.normal,
-          minLeadingWidth: 1,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.circular(12),
-          ),
-          horizontalTitleGap: 0,
-          titleTextStyle: AppTypography.normal,
-          selectedColor:Colors.transparent,// AppColor.selectedColor,
-          selectedTileColor:Colors.transparent,// const Color(0XFFF3EDF7),
-          iconColor: AppColor.background
+          elevation: 0,
+          backgroundColor: Color(0xff65558F),
         ),
+        listTileTheme: ListTileThemeData(
+            contentPadding: const EdgeInsets.only(left: 2, right: 6),
+            leadingAndTrailingTextStyle: AppTypography.normal,
+            minLeadingWidth: 1,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusDirectional.circular(12),
+            ),
+            horizontalTitleGap: 0,
+            titleTextStyle: AppTypography.normal,
+            selectedColor: Colors.transparent, // AppColor.selectedColor,
+            selectedTileColor: Colors.transparent, // const Color(0XFFF3EDF7),
+            iconColor: AppColor.background),
         switchTheme: const SwitchThemeData(
-            trackColor: MaterialStatePropertyAll(AppColor.trackSwitch)),
+          trackColor: MaterialStatePropertyAll(AppColor.trackSwitch),
+        ),
 
         textTheme: TextTheme(
           bodySmall: AppTypography.normal!.copyWith(
@@ -114,10 +117,9 @@ class AppThemes {
           backgroundColor: AppColor.background,
           surfaceTintColor: AppColor.background,
           systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarBrightness: Brightness.light,
-            statusBarIconBrightness:Brightness.light
-          ),
+              statusBarColor: Colors.transparent,
+              statusBarBrightness: Brightness.light,
+              statusBarIconBrightness: Brightness.light),
           centerTitle: true,
           titleTextStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                 fontSize: 16,
@@ -126,10 +128,11 @@ class AppThemes {
           elevation: 0,
         ),
         popupMenuTheme: const PopupMenuThemeData(
-            elevation: 0,
-            enableFeedback: true,
-            shadowColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent),
+          elevation: 0,
+          enableFeedback: true,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+        ),
         timePickerTheme: const TimePickerThemeData(
           backgroundColor: AppColor.border,
           hourMinuteColor: AppColor.hourColor,
@@ -160,10 +163,9 @@ class AppThemes {
           ),
           horizontalTitleGap: 0,
           titleTextStyle: AppTypography.normal,
-          selectedColor: Colors.transparent,// AppColor.selectedColor,
-          selectedTileColor:Colors.transparent,// AppColor.selectTile,
+          selectedColor: Colors.transparent, // AppColor.selectedColor,
+          selectedTileColor: Colors.transparent, // AppColor.selectTile,
           iconColor: AppColor.white,
-          
         ),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
