@@ -14,15 +14,18 @@ mixin AlertsDialog<T extends StatefulWidget> on State<T> {
           ),
           actions: [
             TextButton(
-              onPressed: function,
-              child: const Text('Sim'),
-            ),
-            TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Não'),
-            )
+              child: Text(
+                'Cancelar',
+                style: TextStyle(color: Theme.of(context).colorScheme.errorContainer),
+              ),
+            ),
+            TextButton(
+              onPressed: function,
+              child: const Text('Sim'),
+            ),
           ],
         );
       },
@@ -38,17 +41,17 @@ mixin AlertsDialog<T extends StatefulWidget> on State<T> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancelar'),
+            child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.errorContainer)),
           ),
           TextButton(
             onPressed: () {
               return Navigator.of(context).pop(true);
             },
-            child: const Text('Excluir'),
+            child: const Text('Sim'),
           ),
         ],
       ),
     );
-    return shouldDismiss ?? false;
+    return shouldDismiss;
   }
 }

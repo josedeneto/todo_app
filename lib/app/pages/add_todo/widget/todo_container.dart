@@ -17,10 +17,11 @@ class TodoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final Color borderColor = isActiveBorder == true
+    final colorScheme = Theme.of(context).colorScheme;
+    final Color borderColor = isActiveBorder == true
         ? AppColor.primary
         : (isEmptyTodo == true ? AppColor.red : Colors.transparent);
-        final List<BoxShadow> boxShadow = isDarkMode!
+    final List<BoxShadow> boxShadow = isDarkMode!
         ? [
             BoxShadow(
               color: AppColor.border.withOpacity(0.8),
@@ -37,9 +38,9 @@ class TodoContainer extends StatelessWidget {
           color: borderColor,
           width: 0.50,
         ),
-        boxShadow:boxShadow,
+        boxShadow: boxShadow,
         borderRadius: BorderRadius.circular(12),
-        color: Theme.of(context).colorScheme.background,
+        color: colorScheme.background,
       ),
       child: child,
     );

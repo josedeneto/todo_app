@@ -60,7 +60,7 @@ class TaskCompleted extends StatelessWidget {
             },
           ),
           child: const NoTasksComponent(
-            image: AppIcons.noTodoee,
+            image: AppIcons.noTodoCompleted,
             text: 'Sem tarefas concluídas',
           ),
         ),

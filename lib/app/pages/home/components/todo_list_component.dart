@@ -70,7 +70,7 @@ class TodoListWidget extends StatelessWidget {
                 itemBuilder: (_, index) {
                   return AnimationConfiguration.staggeredList(
                     delay: const Duration(milliseconds: 500),
-                    duration: const Duration(milliseconds: 500),
+                    //duration: const Duration(milliseconds: 500),
                     position: index,
                     child: SlideAnimation(
                       child: DismissibleWidget(

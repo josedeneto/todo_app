@@ -31,7 +31,7 @@ class FilterChipWidget extends StatelessWidget {
           color: isSelected
               ? AppColor.white
               : (!isSelected
-                  ? (isDarkMode ? AppColor.white : AppColor.background)
+                  ? (isDarkMode ? AppColor.white : AppColor.red)
                   : AppColor.white),
         ),
       ),

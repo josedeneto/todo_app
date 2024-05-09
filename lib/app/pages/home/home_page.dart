@@ -28,12 +28,13 @@ class _HomePageState extends State<HomePage>
     final hourFormat = DateFormat('H:mm').format(DateTime.now());
     _greeting = greeting(hourFormat);
   }
-
+  late final HomeController homeController;
   late PageController pageController;
   late final AdvancedDrawerController _advancedDrawerController;
 
   @override
   void initState() {
+     homeController = context.read<HomeController>();
     pageController = PageController(initialPage: 0);
     _advancedDrawerController = AdvancedDrawerController();
     _updateGreeting();
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
+    homeController.dispose();
     pageController.dispose();
     _advancedDrawerController.dispose();
     super.dispose();
@@ -49,7 +51,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    final homeController = context.read<HomeController>();
+   
     return AdvancedDrawer(
       openRatio: 0.70,
       openScale: 0.70,

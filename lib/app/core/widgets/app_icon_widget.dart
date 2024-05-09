@@ -1,19 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
- const String path = 'assets/images/';
+const String path = 'assets/images/';
+
 class AppIcons {
- 
- static const noTodo = '${path}0.svg';
- static const noTodoe = '${path}1.svg';
- static const noTodoee = '${path}2.svg';
+  static const noTodo = '${path}no_todo.svg';
+  static const noTodoCompleted = '${path}no_todo_completed.svg';
+  static const logo =  'assets/images/tm_logo.png';
 }
 
 class AppIconWidget extends StatelessWidget {
   final String icon;
   final Size? size;
-   const AppIconWidget({
+  const AppIconWidget({
     Key? key,
     required this.icon,
     this.size,
@@ -23,8 +22,8 @@ class AppIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       icon,
-      width: size?.width ?? 100,
-      height: size?.height ?? 100,
+      width: size?.width ?? 85,
+      height: size?.height ?? 85,
     );
   }
 }

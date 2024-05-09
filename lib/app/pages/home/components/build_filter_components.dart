@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../controller/home_controller.dart';
 import '../widgets/filter_chip_widget.dart';
@@ -21,7 +22,7 @@ class BuildFiltersComponets extends StatelessWidget {
       children: [
         FilterChipWidget(
           title: 'Todas',
-          todos: homeController.todos.length,
+          todos: context.read<HomeController>().todos.length,
           function: (value) {
             homeController.toggleChip(value);
             pageController.previousPage(
@@ -29,14 +30,14 @@ class BuildFiltersComponets extends StatelessWidget {
               curve: Curves.ease,
             );
           },
-          isSelected: homeController.isSelected,
+          isSelected: context.watch<HomeController>().isSelected,
         ),
         const SizedBox(
           width: 15,
         ),
         FilterChipWidget(
           title: 'Feitas',
-          todos: homeController.done.length,
+          todos: context.read<HomeController>().done.length,
           function: (value) {
             homeController.toggleChip(value);
             pageController.nextPage(
@@ -44,7 +45,7 @@ class BuildFiltersComponets extends StatelessWidget {
               curve: Curves.ease,
             );
           },
-          isSelected: !homeController.isSelected,
+          isSelected:!context.watch<HomeController>().isSelected,
         ),
       ],
     );
